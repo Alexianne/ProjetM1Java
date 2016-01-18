@@ -1,0 +1,3 @@
+- créer un projet sur github
+- (récupérer les mdp de mon ancienne appli)
+- réfléchir sur comment faire l'application
