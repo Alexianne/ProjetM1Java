@@ -1,0 +1,25 @@
+package td3socket;
+
+public class ClientServerTCP {
+	Client{
+		Etablissement connexion;
+		while (!fini){
+			demande requete;
+			envoie requete;
+			recoit reponse;
+			affiche reponse;
+		}
+		Fermer connexion;
+	}
+	
+	Server{
+		Cree sock ecoute
+		while(true){
+			recevoir requete;
+			traiter requete;
+			renvoyer reponse;
+		}
+		Fin connexion;
+	}
+
+}
