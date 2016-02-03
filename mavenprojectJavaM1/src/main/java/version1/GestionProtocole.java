@@ -72,7 +72,7 @@ public class GestionProtocole {
 	
 	public String getlist(String message){
 		try {
-			String list = servData.getlist();
+			String list = servData.getlist(message);
 			return "OK"+list;
 		}
 		catch (NullPointerException e){
