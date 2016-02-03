@@ -145,9 +145,9 @@ public class GestionProtocole {
                         public String suppcompte(String message){
 		try {
 			String msg[] = message.split(" ");
-			String id=msg[1];
+			String id = msg[1];
 			boolean rep;
-                        rep = servAuth.(id);
+                        rep = servAuth.suppcompte(id);
                         return "OK "+rep;
 		} catch (NullPointerException e) {
 			return "ERREUR Authentification compte inexistant";
