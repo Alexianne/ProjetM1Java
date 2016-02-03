@@ -19,19 +19,24 @@ public class Données {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    String getlist() {
+    String getlist(String message) {
+        DatabaseConnect.getlist(message);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     String getnom(String motclé) {
+        DatabaseConnect.getnom(motclé);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     String getinfo(String chnom) {
+        DatabaseConnect.getinfouser(chnom);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     boolean modifinfo(String prenom, String nom, String email, String phone, LocalDate naissance, double visible, double id) {
+        DatabaseConnect.modinfo(prenom, nom, email, phone, naissance, visible, id);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -42,6 +42,24 @@ public class DatabaseConnect {
             return null;
         }
     }
+        public static Connection connectAuth(){
+        try {
+            String url = "jdbc:mysql://localhost:3306/donnees_utilisateur";
+            String user = "root";
+            String passwd = "stri";
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver OK");
+
+            Connection conn = DriverManager.getConnection(url, user, passwd);
+            System.out.println("Connexion effective !");         
+            return conn;
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        }
 	
     /**
      *
@@ -58,7 +76,28 @@ public class DatabaseConnect {
         }
         return rst;
      }
-     
+    public static ResultSet selectAuth(String query){
+        try {
+            cnx = connectAuth();
+            stat=cnx.createStatement();
+            rst = stat.executeQuery(query);
+        } 
+        catch (Exception e) {
+        }
+        return rst;
+     }
+    
+     public static boolean insertAuth(String query){
+        try {
+            cnx = connectAuth();
+            stat=cnx.createStatement();
+            stat.executeUpdate(query);
+            return true;
+        }  
+        catch (Exception e) {
+            return false;
+        }
+     }
       public static boolean insertDB(String query){
         try {
             cnx = connectDB();
@@ -73,6 +112,22 @@ public class DatabaseConnect {
     }   
 
     static void newuser(String prenom, String nom, String email, String phone, LocalDate naissance, double visible, double id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void getlist(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void getnom(String motclé) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void getinfouser(String chnom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void modinfo(String prenom, String nom, String email, String phone, LocalDate naissance, double visible, double id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
