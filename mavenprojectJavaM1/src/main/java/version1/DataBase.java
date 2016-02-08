@@ -6,7 +6,6 @@
 package version1;
 import java.awt.List;
 import java.sql.*;
-//import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -126,7 +125,7 @@ public class DataBase {
         
     }
    
-    static ArrayList<String> getinfouser(int id) {
+    static ArrayList<String> getinfouser(String id) {
         String query = "SELECT * FROM coordonnees c, competence t,diplome d WHERE c.id ='"+id+"' and t.id='"+id+"' and d.id='"+id+"';'";
         rst = selectDB(query);
         boolean add = true ;
@@ -142,16 +141,15 @@ public class DataBase {
     }
 
     static boolean addinfo(String id, String competence, String niv, String description, String diplome, String annee, double visible) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO competence c, diplome d  VALUES ('c."+id+"','c."+competence+"','c."+niv+"','c."+description+"','c."+visible+"','d."+id+"','d."+diplome+"','d."+annee+"','d."+visible+"')";
+        return insertDB(query);
     }
 
 
-    String getinfo(String chnom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    boolean modifinfo(String id,String prenom, String nom, String email, String phone, LocalDate naissance, double visible) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    boolean modifinfo(String id,String prenom, String nom, String email, String phone, String naissance, double visible) {
+        String query = "Update coordonnees SET nom='"+nom+"',prenom='"+prenom+"',email='"+email+"',telephone='"+phone+"',naissance='"+naissance+"',visibilite='"+visible+"' WHERE id = '"+id+"'";
+        return insertDB(query);
     }
 }
     
