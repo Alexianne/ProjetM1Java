@@ -5,9 +5,10 @@
  */
 package version1;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  *
@@ -16,12 +17,12 @@ import java.util.Locale;
  
 public class GestionProtocole {
 	// Attributs
-	private Authentification servAuth;
-        private Données servData;
+	private AuthentificationBase servAuth;
+        private DataBase servData;
 	// Contructeur
 	public GestionProtocole(){
-		servAuth = new Authentification();
-                servData = new Données();
+		servAuth = new AuthentificationBase();
+                servData = new DataBase();
 		
 	}
 	// Méthodes
@@ -31,7 +32,7 @@ public class GestionProtocole {
                 String msg[] = message.split(" ");
 		String pseudo = msg[1];
 		String mdp =msg[2];
-                int id = servAuth.newauth(pseudo,mdp);
+                    boolean id = servAuth.newauth(pseudo,mdp);
 		return "OK "+id;
                 } catch (NullPointerException e) {
 			return "ERREUR Authentification Création de compte";
@@ -43,9 +44,8 @@ public class GestionProtocole {
 			String msg[] = message.split(" ");
 			String pseudo=msg[1];
 			String mdp=msg[2];
-			boolean rep;
-                        rep = servAuth.auth(pseudo,mdp);
-                        return "OK "+rep;
+			ArrayList<String> rep = servAuth.auth(pseudo,mdp);
+                        return "OK "+rep.get(0);
 		} catch (NullPointerException e) {
 			return "ERREUR Authentification compte inexistant";
 		}
@@ -54,16 +54,14 @@ public class GestionProtocole {
 	public String newuser(String message){
 		try {
 			String msg[] = message.split(" ");
-			String prenom = msg[1];
-			String nom = msg[2];
-                        String email = msg[3];
-                        String phone = msg[4];
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mm yyyy", Locale.FRANCE);
-                        LocalDate naissance = LocalDate.parse(msg[6], formatter);
-                        double visible = Double.parseDouble(msg[6]);
-                        double id = Double.parseDouble(msg[6]);
-			boolean rep;
-                        rep = servData.newuser(prenom,nom,email,phone,naissance,visible,id);
+			String id = msg[1];
+                        String prenom = msg[2];
+			String nom = msg[3];
+                        String email = msg[4];
+                        String phone = msg[5];
+                        String naissance = msg[6];
+                        double visible = Double.parseDouble(msg[7]);
+			boolean rep = servData.newuser(id,prenom,nom,email,phone,naissance,visible);
                         return "OK "+rep;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA création compte ";
@@ -72,8 +70,11 @@ public class GestionProtocole {
 	
 	public String getlist(String message){
 		try {
-			String list = servData.getlist(message);
-			return "OK"+list;
+                        String msg[] = message.split(" ");
+			String nom = msg[1];
+			ArrayList<String> list = DataBase.getlist(nom);
+                        String res = String.join(" ", list);
+			return "OK "+res;
 		}
 		catch (NullPointerException e){
 			return "ERREUR Récupération Données Impossible";
@@ -85,7 +86,7 @@ public class GestionProtocole {
 		String chnom = msg[1];
 		try {
 			String listinfo = servData.getinfo(chnom);
-			return "OK"+listinfo;
+			return "OK "+listinfo;
 		}
 		catch (NullPointerException e){
 			return "ERREUR Récupération des NOMS Impossible";
@@ -96,7 +97,7 @@ public class GestionProtocole {
                 String msg[] = message.split(" ");
 		String motclé = msg[1];
 		try {
-			String listnom = servData.getnom(motclé);
+			ArrayList<Integer> listnom = servData.getnom(motclé);
 			return "OK"+listnom;
 		}
 		catch (NullPointerException e){
@@ -111,32 +112,29 @@ public class GestionProtocole {
 			String nom = msg[2];
                         String email = msg[3];
                         String phone = msg[4];
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mm yyyy", Locale.FRANCE);
-                        LocalDate naissance = LocalDate.parse(msg[6], formatter);
+                        String naissance = msg[5]; 
                         double visible = Double.parseDouble(msg[6]);
-                        double id = Double.parseDouble(msg[6]);
+                        String id = msg[6];
 			boolean modif;
-                        modif = servData.modifinfo(prenom,nom,email,phone,naissance,visible,id);
+                        modif = servData.modifinfo(id,prenom,nom,email,phone,naissance,visible);
                         return "OK "+modif;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA Modification compte ";
 		}
 	}
                         
-                        public String test(String message){
+                        public String addinfo(String message){
 		try {
 			String msg[] = message.split(" ");
-			String prenom = msg[1];
-			String nom = msg[2];
-                        String email = msg[3];
-                        String phone = msg[4];
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mm yyyy", Locale.FRANCE);
-                        LocalDate naissance = LocalDate.parse(msg[6], formatter);
-                        double visible = Double.parseDouble(msg[6]);
-                        double id = Double.parseDouble(msg[6]);
-			boolean modif;
-                        modif = servData.modifinfo(prenom,nom,email,phone,naissance,visible,id);
-                        return "OK "+modif;
+			String id = msg[1];
+                        String competence = msg[2];
+			String niv = msg[3];
+                        String description = msg[4];
+                        String diplome = msg[5];
+                        String annee = msg[6];
+                        double visible = Double.parseDouble(msg[7]);
+			boolean info = servData.addinfo(id,competence,niv,description,diplome,annee,visible);
+                        return "OK "+info;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA Modification compte ";
 		}
@@ -180,6 +178,9 @@ public class GestionProtocole {
 			return result;
                 case "SUPPCOMPTE":
 			result=suppcompte(message);
+			return result;
+                case "ADDINFO":
+                        result=addinfo(message);
 			return result;
                 default:
 			return "La requête est inconnue";
