@@ -44,8 +44,15 @@ public class GestionProtocole {
 			String msg[] = message.split(" ");
 			String pseudo=msg[1];
 			String mdp=msg[2];
-			ArrayList<String> rep = servAuth.auth(pseudo,mdp);
-                        return "OK "+rep.get(0);
+                        String err = null;
+			try {
+                            ArrayList<String> rep = servAuth.auth(pseudo,mdp);
+                            err = rep.get(0);
+                        }
+                        catch(IndexOutOfBoundsException e){
+                           err = "ERR200";
+                        }
+                        return "OK "+err;
 		} catch (NullPointerException e) {
 			return "ERREUR Authentification compte inexistant";
 		}
@@ -108,15 +115,14 @@ public class GestionProtocole {
                 	public String modifinfo(String message){
 		try {
 			String msg[] = message.split(" ");
-			String prenom = msg[1];
-			String nom = msg[2];
-                        String email = msg[3];
-                        String phone = msg[4];
-                        String naissance = msg[5]; 
-                        double visible = Double.parseDouble(msg[6]);
-                        String id = msg[6];
-			boolean modif;
-                        modif = servData.modifinfo(id,prenom,nom,email,phone,naissance,visible);
+			String id = msg[1];
+                        String prenom = msg[2];
+			String nom = msg[3];
+                        String email = msg[4];
+                        String phone = msg[5];
+                        String naissance = msg[6]; 
+                        double visible = Double.parseDouble(msg[7]);
+			boolean modif = servData.modifinfo(id,prenom,nom,email,phone,naissance,visible);
                         return "OK "+modif;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA Modification compte ";
