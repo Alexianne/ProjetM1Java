@@ -5,7 +5,9 @@
  */
 package version1;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -43,6 +45,7 @@ public class JFAccueil extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        mess = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +66,8 @@ public class JFAccueil extends javax.swing.JFrame {
 
         jLabel3.setText("Accueil");
 
+        mess.setText("message");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,22 +76,24 @@ public class JFAccueil extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBconnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mess)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTpseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTpass, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
-                                .addComponent(jLabel3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBconnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel3)))))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,7 +101,9 @@ public class JFAccueil extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(mess)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTpseudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -121,6 +130,7 @@ public class JFAccueil extends javax.swing.JFrame {
             String pass;
             Socket leSocket;
             String req;
+            BufferedReader fluxEntreeSocket;
             PrintStream fluxSortieSocket;
             leSocket = new Socket("localhost", 7);
             pseudo = jTpseudo.getText();
@@ -128,6 +138,17 @@ public class JFAccueil extends javax.swing.JFrame {
             req = "AUTH "+pseudo+" "+pass;
             fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
             fluxSortieSocket.println(req);
+            fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
+            String retour = fluxEntreeSocket.readLine();
+            String msg[] = retour.split(" ");
+            switch (msg[1]){
+		case "true":
+                    this.setVisible(false);
+                    JFApp fenetreApp = new JFApp();
+                    fenetreApp.setVisible(true);
+                case "false":
+                    
+            }
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,6 +186,7 @@ public class JFAccueil extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JFAccueil().setVisible(true);
+                mess.setVisible(false);
             }
         });
     }
@@ -178,5 +200,6 @@ public class JFAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTpass;
     private javax.swing.JTextField jTpseudo;
+    private javax.swing.JLabel mess;
     // End of variables declaration//GEN-END:variables
 }
