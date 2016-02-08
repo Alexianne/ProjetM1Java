@@ -40,7 +40,7 @@ public class GestionProtocole {
 	}
 	
 	public String auth(String message){
-            System.out.println("MESS : "+message);
+            //System.out.println("MESS : "+message);
 		try {
 			String msg[] = message.split(" ");
 			String pseudo=msg[1];

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Alexandra
  */
-public class JFAccueil extends javax.swing.JFrame {
+public class JFAccueil extends javax.swing.JFrame{
 
     /**
      * Creates new form JFAccueil
@@ -144,12 +144,10 @@ public class JFAccueil extends javax.swing.JFrame {
             //System.out.println(retour);
             String msg[] = retour.split(" ");
             //System.out.println("err : "+msg[1]);
-            switch (msg[1]){
-		case "ERR200":
+            if("ERR200".equals(msg[1])){
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
-                    break;
-                default:
+            }else{
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
                     fenetreApp.setVisible(true);
