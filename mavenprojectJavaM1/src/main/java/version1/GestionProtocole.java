@@ -83,9 +83,9 @@ public class GestionProtocole {
         
         public String getinfo(String message){
                 String msg[] = message.split(" ");
-		String chnom = msg[1];
+		String id = msg[1];
 		try {
-			String listinfo = servData.getinfo(chnom);
+			ArrayList<String> listinfo = servData.getinfouser(id);
 			return "OK "+listinfo;
 		}
 		catch (NullPointerException e){
