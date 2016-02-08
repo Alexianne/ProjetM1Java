@@ -14,8 +14,11 @@ public class JFApp extends javax.swing.JFrame {
     /**
      * Creates new form JFApp
      */
-    public JFApp() {
+    private String id;
+    
+    public JFApp(String id) {
         initComponents();
+        this.id = id;
     }
 
     /**
@@ -260,11 +263,7 @@ public class JFApp extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFApp().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

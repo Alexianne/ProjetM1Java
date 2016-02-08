@@ -143,13 +143,13 @@ public class JFAccueil extends javax.swing.JFrame {
             String retour = fluxEntreeSocket.readLine();
             String msg[] = retour.split(" ");
             switch (msg[1]){
-		case "true":
-                    this.setVisible(false);
-                    JFApp fenetreApp = new JFApp();
-                    fenetreApp.setVisible(true);
-                case "false":
+		case "ERR200":
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
+                default:
+                    this.setVisible(false);
+                    JFApp fenetreApp = new JFApp(msg[1]);
+                    fenetreApp.setVisible(true);
             }
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
