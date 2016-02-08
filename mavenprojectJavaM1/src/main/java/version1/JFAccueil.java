@@ -5,6 +5,7 @@
  */
 package version1;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,8 +25,8 @@ public class JFAccueil extends javax.swing.JFrame {
      */
     public JFAccueil() {
         initComponents();
-        Socket leSocket;
-        PrintStream fluxSortieSocket;
+        mess.setVisible(false);
+        mess.setForeground(Color.red);
     }
 
     /**
@@ -147,7 +148,8 @@ public class JFAccueil extends javax.swing.JFrame {
                     JFApp fenetreApp = new JFApp();
                     fenetreApp.setVisible(true);
                 case "false":
-                    
+                    mess.setText("Erreur d'authentification");
+                    mess.setVisible(true);
             }
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,7 +188,6 @@ public class JFAccueil extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JFAccueil().setVisible(true);
-                mess.setVisible(false);
             }
         });
     }
