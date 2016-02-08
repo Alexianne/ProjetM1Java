@@ -1,0 +1,10 @@
+0 pour séparer les champs
+1 admin voit
+2 admin+user voit
+3 admin+user+anonyme voit
+
+par défaut tout a 3
+nom+prenom+mail, obligé detre vu (annuaire) du coup pas comptabilisé
+donc phone et naissance pour le choix de la visibilité
+
+exemple : si je veux que les utilisateurs puissent voir mon tel mais pas les anonymes et personne ma date de naissance ça donne : 201
