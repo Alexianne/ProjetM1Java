@@ -147,6 +147,7 @@ public class JFAccueil extends javax.swing.JFrame {
 		case "ERR200":
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
+                    break;
                 default:
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
