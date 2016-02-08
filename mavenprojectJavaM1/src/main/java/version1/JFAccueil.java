@@ -141,8 +141,9 @@ public class JFAccueil extends javax.swing.JFrame {
             fluxSortieSocket.println(req);
             fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
             String retour = fluxEntreeSocket.readLine();
+            //System.out.println(retour);
             String msg[] = retour.split(" ");
-            System.out.println("err : "+msg[1]);
+            //System.out.println("err : "+msg[1]);
             switch (msg[1]){
 		case "ERR200":
                     mess.setText("Erreur d'authentification");

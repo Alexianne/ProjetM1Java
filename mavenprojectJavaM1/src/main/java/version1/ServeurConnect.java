@@ -35,7 +35,7 @@ public class ServeurConnect {
 				leServeur = new ServerSocket(0);
 			} catch (IOException ex2) {
 				// fin de connexion
-				System.err.println("Impossible de cr�er un socket serveur : "+ ex);
+				System.err.println("Impossible de créer un socket serveur : "+ ex);
 			}
 		}
 

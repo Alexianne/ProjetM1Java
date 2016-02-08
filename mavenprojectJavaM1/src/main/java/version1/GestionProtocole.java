@@ -54,7 +54,7 @@ public class GestionProtocole {
                         }
                         return "OK "+err;
 		} catch (NullPointerException e) {
-			return "ERREUR Authentification compte inexistant";
+			return "ERREUR ERR200";
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class GestionProtocole {
 		}
 	}
 	
-	public String getlist(String message){
+	/*public String getlist(String message){
 		try {
                         String msg[] = message.split(" ");
 			String nom = msg[1];
@@ -86,7 +86,7 @@ public class GestionProtocole {
 		catch (NullPointerException e){
 			return "ERREUR Récupération Données Impossible";
 		}
-	}
+	}*/
         
         public String getinfo(String message){
                 String msg[] = message.split(" ");
@@ -170,9 +170,9 @@ public class GestionProtocole {
 		case "NEWUSER":
 			result=newuser(message);
 			return result;
-		case "GETLIST":
+		/*case "GETLIST":
 			result=getlist(message);
-			return result;
+			return result;*/
 		case "GETNOM":
 			result=getnom(message);
 			return result;
