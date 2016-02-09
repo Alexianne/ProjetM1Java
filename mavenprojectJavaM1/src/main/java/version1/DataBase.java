@@ -23,6 +23,10 @@ public class DataBase {
     static Statement stat;
     static ResultSet rst,rst2;
 		
+    /**
+     *
+     * @return
+     */
     public static Connection connectDB(){
         try {
             String url = "jdbc:mysql://localhost:3306/donnees_utilisateur";
@@ -42,7 +46,6 @@ public class DataBase {
         }
     }
         
-	
     /**
      *
      * @param query
@@ -59,9 +62,12 @@ public class DataBase {
         return rst;
      }
 
-    
-     
-      public static boolean insertDB(String query){
+    /**
+     *
+     * @param query
+     * @return
+     */
+    public static boolean insertDB(String query){
         try {
             cnx = connectDB();
             stat=cnx.createStatement();
@@ -74,13 +80,18 @@ public class DataBase {
     
     }   
 
-    static boolean newuser(String id, String prenom, String nom, String email, String phone,String naissance, double visible) {
+    static boolean newuser(String id, String nom, String prenom,  String email, String phone,String naissance, double visible) {
         String query = "INSERT INTO coordonnees VALUES ('"+id+"','"+nom+"','"+prenom+"','"+email+"','"+phone+"','"+naissance+"','"+visible+"')";
         return insertDB(query);
         
     }
 
-     public static ArrayList<String> getlist(String message) {
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public static ArrayList<String> getlist(String message) {
         //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
         System.out.println(message);
         String query = "SELECT nom FROM coordonnees WHERE nom='"+message+"'";
@@ -107,7 +118,11 @@ public class DataBase {
             return name;
     }
 
-
+    /**
+     *
+     * @param motclé
+     * @return
+     */
     public static ArrayList<Integer> getnom(String motclé) {
         String query = "SELECT id FROM coordonnees WHERE nom LIKE '%"+motclé+"%' ";
             rst = selectDB(query);

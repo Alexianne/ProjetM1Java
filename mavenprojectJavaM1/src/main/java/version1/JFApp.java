@@ -16,6 +16,10 @@ public class JFApp extends javax.swing.JFrame {
      */
     private String id;
     
+    /**
+     *
+     * @param id
+     */
     public JFApp(String id) {
         initComponents();
         this.id = id;

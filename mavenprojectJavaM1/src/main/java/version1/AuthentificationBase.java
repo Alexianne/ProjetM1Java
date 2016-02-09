@@ -1,4 +1,4 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -32,6 +32,10 @@ public class AuthentificationBase {
     static Statement stat;
     static ResultSet rst;
     
+    /**
+     *
+     * @return
+     */
     public static Connection connectAuth(){
         try {
             String url = "jdbc:mysql://localhost:3306/authentification";
@@ -54,17 +58,33 @@ public class AuthentificationBase {
         }
         }
     
-        public static ResultSet selectAuth(String query){
+    /**
+     *
+     * @param query
+     * @return
+     */
+    public static ResultSet selectAuth(String query){
         try {
             cnx = connectAuth();
             stat=cnx.createStatement();
             rst = stat.executeQuery(query);
         } 
         catch (Exception e) {
+            try {
+                rst.getString("ERR200");
+            } catch (SQLException ex) {
+                Logger.getLogger(AuthentificationBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return rst;
      }
-        public static boolean insertAuth(String query){
+
+    /**
+     *
+     * @param query
+     * @return
+     */
+    public static boolean insertAuth(String query){
         try {
             cnx = connectAuth();
             stat=cnx.createStatement();
@@ -82,6 +102,12 @@ public class AuthentificationBase {
        return insertAuth(query);
     }
 
+    /**
+     *
+     * @param pseudo
+     * @param mdp
+     * @return
+     */
     public static ArrayList<String> auth(String pseudo, String mdp) {
        String query = "SELECT id FROM login WHERE pseudo='"+pseudo+"' and mdp='"+mdp+"'";
        rst = selectAuth(query);
