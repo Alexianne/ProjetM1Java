@@ -43,13 +43,13 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTpseudo" min="-2" pref="132" max="-2" attributes="0"/>
-                          <Component id="jTpass" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jTpseudo" pref="132" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jTpass" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -98,8 +98,6 @@
         <Property name="text" type="java.lang.String" value="Mot de passe : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTpass">
-    </Component>
     <Component class="javax.swing.JButton" name="jBconnect">
       <Properties>
         <Property name="text" type="java.lang.String" value="Se connecter"/>
@@ -130,6 +128,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="message"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jTpass">
     </Component>
   </SubComponents>
 </Form>
