@@ -23,10 +23,17 @@ public class JFAccueil extends javax.swing.JFrame{
     /**
      * Creates new form JFAccueil
      */
+    ClientConnect client;
+    private final static int Port = 7;
+    
+    /**
+     *
+     */
     public JFAccueil() {
         initComponents();
         mess.setVisible(false);
         mess.setForeground(Color.red);
+        client = new ClientConnect(Port);
     }
 
     /**
@@ -55,6 +62,7 @@ public class JFAccueil extends javax.swing.JFrame{
         jLabel2.setText("Mot de passe : ");
 
         jBconnect.setText("Se connecter");
+        jBconnect.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBconnectActionPerformed(evt);
@@ -62,6 +70,11 @@ public class JFAccueil extends javax.swing.JFrame{
         });
 
         jButton2.setText("S'inscrire");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Recherche");
 
@@ -122,6 +135,7 @@ public class JFAccueil extends javax.swing.JFrame{
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconnectActionPerformed
@@ -129,19 +143,20 @@ public class JFAccueil extends javax.swing.JFrame{
         try {
             String pseudo;
             String pass;
-            Socket leSocket;
+            //Socket leSocket;
             String req;
-            BufferedReader fluxEntreeSocket;
+           /*BufferedReader fluxEntreeSocket;
             PrintStream fluxSortieSocket;
-            leSocket = new Socket("localhost", 7);
+            leSocket = new Socket("localhost", 7);*/
             pseudo = jTpseudo.getText();
             pass = jTpass.getText();
             req = "AUTH "+pseudo+" "+pass;
-            fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
+            String retour = client.communiquer(req);
+            /*fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
             fluxSortieSocket.println(req);
             fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
             String retour = fluxEntreeSocket.readLine();
-            //System.out.println(retour);
+            //System.out.println(retour);*/
             String msg[] = retour.split(" ");
             //System.out.println("err : "+msg[1]);
             if("ERR200".equals(msg[1])){
@@ -151,12 +166,22 @@ public class JFAccueil extends javax.swing.JFrame{
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
                     fenetreApp.setVisible(true);
+                    client.fermer();
             }
+            
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jBconnectActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+                    this.setVisible(false);
+                    JFInscription fenetreIns = new JFInscription();
+                    fenetreIns.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
