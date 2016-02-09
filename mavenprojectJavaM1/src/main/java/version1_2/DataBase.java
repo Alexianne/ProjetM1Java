@@ -31,7 +31,7 @@ public class DataBase {
         try {
             String url = "jdbc:mysql://localhost:3306/donnees_utilisateur";
             String user = "root";
-            String passwd = "Proj*SqlJava66";
+            String passwd = "stri";
 
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver OK");
