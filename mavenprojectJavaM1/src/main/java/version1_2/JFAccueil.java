@@ -126,9 +126,9 @@ public class JFAccueil extends javax.swing.JFrame{
                 .addComponent(jBconnect)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
