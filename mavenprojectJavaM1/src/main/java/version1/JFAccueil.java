@@ -19,7 +19,10 @@ import java.util.logging.Logger;
  * @author Alexandra
  */
 public class JFAccueil extends javax.swing.JFrame{
-
+    
+    
+    ClientConnect client;
+    private final static int Port = 7;
     /**
      * Creates new form JFAccueil
      */
@@ -62,6 +65,11 @@ public class JFAccueil extends javax.swing.JFrame{
         });
 
         jButton2.setText("S'inscrire");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Recherche");
 
@@ -127,36 +135,47 @@ public class JFAccueil extends javax.swing.JFrame{
     private void jBconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconnectActionPerformed
         // TODO add your handling code here:
         try {
+            client = new ClientConnect(Port);
             String pseudo;
             String pass;
-            Socket leSocket;
+            //Socket leSocket;
             String req;
-            BufferedReader fluxEntreeSocket;
+           /*BufferedReader fluxEntreeSocket;
             PrintStream fluxSortieSocket;
-            leSocket = new Socket("localhost", 7);
+            leSocket = new Socket("localhost", 7);*/
             pseudo = jTpseudo.getText();
             pass = jTpass.getText();
             req = "AUTH "+pseudo+" "+pass;
-            fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
+            String retour = client.communiquer(req);
+            /*fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
             fluxSortieSocket.println(req);
             fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
             String retour = fluxEntreeSocket.readLine();
-            //System.out.println(retour);
+            //System.out.println(retour);*/
             String msg[] = retour.split(" ");
             //System.out.println("err : "+msg[1]);
             if("ERR200".equals(msg[1])){
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
+                    client.fermer();
             }else{
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
                     fenetreApp.setVisible(true);
+                    client.fermer();
             }
+            
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+          
     }//GEN-LAST:event_jBconnectActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                    this.setVisible(false);
+                    JFInscription fenetreIns = new JFInscription();
+                    fenetreIns.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
