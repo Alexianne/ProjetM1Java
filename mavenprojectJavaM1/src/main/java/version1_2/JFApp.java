@@ -24,6 +24,9 @@ public class JFApp extends javax.swing.JFrame {
         initComponents();
         this.id = id;
         champRech.setText(id);
+        if ("ANONYMOUS".equals(id)){
+            Onglets.removeTabAt(1);
+        }
     }
 
     /**
