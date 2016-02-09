@@ -62,6 +62,11 @@ public class JFAccueil extends javax.swing.JFrame{
         });
 
         jButton2.setText("S'inscrire");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Recherche");
 
@@ -157,6 +162,13 @@ public class JFAccueil extends javax.swing.JFrame{
         }
         
     }//GEN-LAST:event_jBconnectActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        JFInscription fenetreInscr = new JFInscription();
+        fenetreInscr.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

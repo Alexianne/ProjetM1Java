@@ -40,7 +40,7 @@ public class AuthentificationBase {
         try {
             String url = "jdbc:mysql://localhost:3306/authentification";
             String user = "root";
-            String passwd = "stri";
+            String passwd = "Proj*SqlJava66";
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");

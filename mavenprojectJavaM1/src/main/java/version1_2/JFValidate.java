@@ -14,8 +14,11 @@ public class JFValidate extends javax.swing.JFrame {
     /**
      * Creates new form JFValidate
      */
-    public JFValidate() {
+    private String id;
+    
+    public JFValidate(String id) {
         initComponents();
+        this.id = id;
     }
 
     /**
@@ -71,6 +74,8 @@ public class JFValidate extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+         JFApp fenetreApp = new JFApp(id);
+         fenetreApp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -101,11 +106,11 @@ public class JFValidate extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFValidate().setVisible(true);
+         /*java.awt.EventQueue.invokeLater(new Runnable() {
+           public void run() {
+                new JFValidate(id).setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
