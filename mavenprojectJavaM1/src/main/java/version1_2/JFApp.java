@@ -5,6 +5,15 @@
  */
 package version1_2;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Alexandra
@@ -26,6 +35,31 @@ public class JFApp extends javax.swing.JFrame {
         champRech.setText(id);
         if ("ANONYMOUS".equals(id)){
             Onglets.removeTabAt(1);
+        }
+        else{
+            try {
+            Socket leSocket;
+            String req;
+            BufferedReader fluxEntreeSocket;
+            PrintStream fluxSortieSocket;
+            leSocket = new Socket("localhost", 7);
+            req = "GETINFO "+id;
+            fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
+            fluxSortieSocket.println(req);
+            fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
+            String retour = fluxEntreeSocket.readLine();
+            //System.out.println(retour);
+            String msg[] = retour.split(" ");
+            //System.out.println("err : "+msg[1]);
+            if("ERREUR".equals(msg[0])){
+                    System.out.println(retour);
+            }else{
+                    ArrayList<String> listinfo= new ArrayList<>();
+                    System.out.println(retour);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
 

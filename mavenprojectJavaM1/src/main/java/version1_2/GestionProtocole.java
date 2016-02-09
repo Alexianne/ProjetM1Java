@@ -58,6 +58,7 @@ public class GestionProtocole implements Cloneable{
             //System.out.println("MESS : "+message);
 		try {
 			String msg[] = message.split(" ");
+                        System.out.println("------ "+message);
 			String pseudo=msg[1];
 			String mdp=msg[2];
                         String err = null;
