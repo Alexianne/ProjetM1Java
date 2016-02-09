@@ -26,8 +26,6 @@ public class ClientConnect {
     private Socket socketService;
     private PrintStream fluxSortieSocket;
     private BufferedReader fluxEntreeSocket;
-    
-<<<<<<< HEAD
 
     /**
      *
@@ -54,34 +52,7 @@ public class ClientConnect {
      * @return
      * @throws IOException
      */
-=======
 
-    /**
-     *
-     * @param port
-     */
-    public ClientConnect(int port) // utilisation du 7 par default
-    {
-        try
-        {
-            socketService= new Socket("127.0.0.1",port);// si nim serveur saisissable ATTENTION valeur >65535
-            fluxEntreeSocket = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
-            fluxSortieSocket = new PrintStream(socketService.getOutputStream());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println("Connexion localhost Port :"+port);
-    }
-
-    /**
-     *
-     * @param message
-     * @return
-     * @throws IOException
-     */
->>>>>>> fed159b84e1bfd3860044ee110c74a97ebfa0738
     public String communiquer(String message) throws IOException
     {
         //Verification :
