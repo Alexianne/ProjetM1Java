@@ -33,7 +33,7 @@ public class JFAccueil extends javax.swing.JFrame{
         initComponents();
         mess.setVisible(false);
         mess.setForeground(Color.red);
-        client = new ClientConnect(Port);
+        
     }
 
     /**
@@ -141,6 +141,7 @@ public class JFAccueil extends javax.swing.JFrame{
     private void jBconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconnectActionPerformed
         // TODO add your handling code here:
         try {
+            client = new ClientConnect(Port);
             String pseudo;
             String pass;
             //Socket leSocket;
@@ -162,6 +163,7 @@ public class JFAccueil extends javax.swing.JFrame{
             if("ERR200".equals(msg[1])){
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
+                    client.fermer();
             }else{
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
@@ -177,9 +179,11 @@ public class JFAccueil extends javax.swing.JFrame{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+                    
                     this.setVisible(false);
                     JFInscription fenetreIns = new JFInscription();
                     fenetreIns.setVisible(true);
+                    
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
