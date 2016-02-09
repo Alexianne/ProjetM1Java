@@ -123,20 +123,20 @@ public class DataBase {
      * @param motclé
      * @return
      */
-    public static ArrayList<Integer> getnom(String motclé) {
-        String query = "SELECT id FROM coordonnees WHERE nom LIKE '%"+motclé+"%' ";
+    public static Map<String, String> getnom() {
+        String query = "SELECT nom, prenom FROM coordonnees";
             rst = selectDB(query);
             boolean add = true ;
-            ArrayList<Integer> idsearch = new ArrayList<>();
+            Map<String, String> rechHash = new HashMap<>();
       
         try {
             while(rst.next() && add){
-                add = idsearch.add(rst.getInt(1));  
+                rechHash.put( rst.getString(1), rst.getString(2)); 
             } 
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return idsearch;
+            return rechHash;
         
     }
    

@@ -54,9 +54,9 @@ public class ClientManage extends Thread
         try
         {
             reqclient = fluxEntreeSocket.readLine();
-            System.out.println(reqclient);
+            System.out.println("reqcli : "+reqclient);
             repserv = gestionprotocole.traitement(reqclient);
-            System.out.println(repserv);
+            System.out.println("repserv : "+repserv);
             fluxSortieSocket.println(repserv);
         }
         catch (Exception e)

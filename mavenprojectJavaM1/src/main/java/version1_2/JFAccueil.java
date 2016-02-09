@@ -48,7 +48,7 @@ public class JFAccueil extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         mess = new javax.swing.JLabel();
-        jTpass = new javax.swing.JPasswordField();
+        jTpass = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,7 +231,7 @@ public class JFAccueil extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jTpass;
+    private javax.swing.JTextField jTpass;
     private javax.swing.JTextField jTpseudo;
     private javax.swing.JLabel mess;
     // End of variables declaration//GEN-END:variables

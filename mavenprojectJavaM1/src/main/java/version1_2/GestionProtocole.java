@@ -8,6 +8,7 @@ package version1_2;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -61,7 +62,7 @@ public class GestionProtocole implements Cloneable{
                         System.out.println("------ "+message);
 			String pseudo=msg[1];
 			String mdp=msg[2];
-                        String err = null;
+                        String err;// = null;
 			try {
                             ArrayList<String> rep = servAuth.auth(pseudo,mdp);
                             err = rep.get(0);
@@ -135,12 +136,10 @@ public class GestionProtocole implements Cloneable{
      * @param message
      * @return
      */
-    public String getnom(String message){
-                String msg[] = message.split(" ");
-		String motclé = msg[1];
+    public String getnom(){
 		try {
-			ArrayList<Integer> listnom = servData.getnom(motclé);
-			return "OK"+listnom;
+			Map<String, String> rechHash = servData.getnom();
+			return "OK"+rechHash;
 		}
 		catch (NullPointerException e){
 			return "ERREUR Récupération des NOMS Impossible";
@@ -230,7 +229,7 @@ public class GestionProtocole implements Cloneable{
 			result=getlist(message);
 			return result;*/
 		case "GETNOM":
-			result=getnom(message);
+			result=getnom();
 			return result;
                 case "GETINFO":
 			result=getinfo(message);
