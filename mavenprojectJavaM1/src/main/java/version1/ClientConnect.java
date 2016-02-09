@@ -16,10 +16,7 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import version1.GestionProtocole;
 /**
-<<<<<<< HEAD
-=======
 
->>>>>>> fed159b84e1bfd3860044ee110c74a97ebfa0738
 /**
  *
  * @author Brice
