@@ -11,6 +11,11 @@ package version1;
  */ 
 import java.io.*;
 import java.net.*;
+
+/**
+ *
+ * @author Brice
+ */
 public class clientTest extends Object {
 	/**
 	 * @param args

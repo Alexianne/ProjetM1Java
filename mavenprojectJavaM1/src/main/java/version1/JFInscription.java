@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class JFInscription extends javax.swing.JFrame {
 
     
-     ClientConnect client;
+    ClientConnect client;
     private final static int Port = 7;
     /**
      * 
@@ -173,6 +173,7 @@ public class JFInscription extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
 

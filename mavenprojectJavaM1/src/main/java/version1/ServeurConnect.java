@@ -4,81 +4,69 @@
  * and open the template in the editor.
  */
 package version1;
-import java.net.*;
-import java.io.*;
-
+import java.net.ServerSocket;
+import version1.GestionProtocole;
 /**
  *
- * @author Alexandra
+ * @author Brice
  */
 public class ServeurConnect {
-    
-	public final static int portEcho = 7;
+    private final static int port = 7; //utilisation du Port 7 par default
 
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String args[]) {
-		ServerSocket leServeur = null;
-		Socket connexionCourante;
-		GestionProtocole gestProto = new GestionProtocole();
+    /**
+     *
+     * @param gestionprotocole
+     */
+    public ServeurConnect(GestionProtocole gestionprotocole)
+    {
+    	this(gestionprotocole, port);
+    }
 
-		try {
-			leServeur = new ServerSocket(portEcho);
-		} catch (IOException ex) {
-			// fin de connexion
-			System.err.println("Impossible de créer un socket serveur sur ce port : "+ ex);
+    /**
+     *
+     * @param gestionprotocole
+     * @param port1
+     */
+    public ServeurConnect(GestionProtocole gestionprotocole, int port1) // Création d'un serveur aevc en parametre un estionnaire de protocole et un port
+    {
+    	GestionProtocole gestionserveur= gestionprotocole;
+    	ServerSocket socketEcoute = null;
 
-			try {
-				// on demande un port anonyme
-				leServeur = new ServerSocket(0);
-			} catch (IOException ex2) {
-				// fin de connexion
-				System.err.println("Impossible de créer un socket serveur : "+ ex);
-			}
-		}
+        try
+        {
+            socketEcoute= new ServerSocket(port1);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-		if (leServeur != null) {
-			try {
-				System.err.println("En attente de connexion sur le port : "+ leServeur.getLocalPort());
-				while (true) {
-					connexionCourante = leServeur.accept();
+        System.out.println("Création Serveur PORT :" + port);
+        System.out.println(socketEcoute);
 
-					System.err.println("Nouvelle connexion : "+ connexionCourante);
-					
-					try {
-						PrintStream fluxSortieSocket = new PrintStream(connexionCourante.getOutputStream());
-						BufferedReader fluxEntreeSocket = new BufferedReader(new InputStreamReader(connexionCourante.getInputStream()));
+        while(true)
+        {
+            System.out.println("Attend qu'un client arrive ...");
+            try
+            {
+                new ClientManage(socketEcoute.accept(), (GestionProtocole) gestionserveur.clone()).start();
+                System.out.println("Lancement d'un Client Management...");
+                System.out.println("Un nouveau client à était lancé");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 
-						while (true) {
-							String req = fluxEntreeSocket.readLine();
-							
-							if(req==null) break;
-							
-							System.out.println("req : " + req);
-							
-							String rep=gestProto.traitement(req);
+    /**
+     * Lancement Serveur ( 2 parametres necessaires port et gestionnaire proto
+     */
+    public void start()// Lancer un serveur 
+    {
+		new ServeurConnect(new GestionProtocole(), port);
+    }
 
-							fluxSortieSocket.println(rep);
-
-
-							
-						}
-						System.err.println("Fin de connexion");
-					} catch (IOException ex) {
-						// fin de connexion
-						System.err.println("Fin de connexion : " + ex);
-					}
-
-					connexionCourante.close();
-				}
-			} catch (Exception ex) {
-				// erreur de connexion
-				System.err.println("Une erreur est survenue : " + ex);
-				ex.printStackTrace();
-			}
-		}
-	}
     
 }

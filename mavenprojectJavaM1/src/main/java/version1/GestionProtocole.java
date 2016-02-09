@@ -10,16 +10,21 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.UUID;
 
+
 /**
  *
  * @author Brice
  */
  
-public class GestionProtocole {
+public class GestionProtocole implements Cloneable{
 	// Attributs
 	private AuthentificationBase servAuth;
         private DataBase servData;
 	// Contructeur
+
+    /**
+     *
+     */
 	public GestionProtocole(){
 		servAuth = new AuthentificationBase();
                 servData = new DataBase();
@@ -27,7 +32,12 @@ public class GestionProtocole {
 	}
 	// Méthodes
 	
-	public String newauth(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String newauth(String message){
 		try{
                 String msg[] = message.split(" ");
 		String pseudo = msg[1];
@@ -39,7 +49,12 @@ public class GestionProtocole {
 		}
 	}
 	
-	public String auth(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String auth(String message){
             //System.out.println("MESS : "+message);
 		try {
 			String msg[] = message.split(" ");
@@ -59,17 +74,23 @@ public class GestionProtocole {
 		}
 	}
 	
-	public String newuser(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String newuser(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];
-                        String prenom = msg[2];
-			String nom = msg[3];
+                        String nom = msg[2];
+			String prenom = msg[3];
                         String email = msg[4];
                         String phone = msg[5];
                         String naissance = msg[6];
                         double visible = Double.parseDouble(msg[7]);
-			boolean rep = servData.newuser(id,prenom,nom,email,phone,naissance,visible);
+                        System.out.println(visible);
+			boolean rep = servData.newuser(id,nom,prenom,email,phone,naissance,visible);
                         return "OK "+rep;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA création compte ";
@@ -88,6 +109,13 @@ public class GestionProtocole {
 			return "ERREUR Récupération Données Impossible";
 		}
 	}*/
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+
         
         public String getinfo(String message){
                 String msg[] = message.split(" ");
@@ -101,7 +129,12 @@ public class GestionProtocole {
 		}
 	}
         
-                public String getnom(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getnom(String message){
                 String msg[] = message.split(" ");
 		String motclé = msg[1];
 		try {
@@ -113,7 +146,12 @@ public class GestionProtocole {
 		}
 	}
         
-                	public String modifinfo(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String modifinfo(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];
@@ -130,7 +168,12 @@ public class GestionProtocole {
 		}
 	}
                         
-                        public String addinfo(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String addinfo(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];
@@ -147,7 +190,12 @@ public class GestionProtocole {
 		}
 	}
                                                 
-                        public String suppcompte(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String suppcompte(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];
@@ -158,7 +206,13 @@ public class GestionProtocole {
 			return "ERREUR Authentification compte inexistant";
 		}
 	}
-	public String traitement(String message){
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String traitement(String message){
 		String result;
 		String type[] = message.split(" ");
 		switch (type[0]){
@@ -192,5 +246,22 @@ public class GestionProtocole {
                 default:
 			return "La requête est inconnue";
 		}
+        }
+                @Override
+        public Object clone() throws CloneNotSupportedException {
+	    GestionProtocole gestionprotocole = null;
+	    try {
+	    	// On récupère l'instance à renvoyer par l'appel de la 
+	      	// méthode super.clone()
+	      	gestionprotocole = (GestionProtocole) super.clone();
+	    } catch(CloneNotSupportedException cnse) {
+	      	// Ne devrait jamais arriver car nous implémentons 
+	      	// l'interface Cloneable
+	      	cnse.printStackTrace(System.err);
+	    }
+	    
+	    
+	    // on renvoie le clone
+	    return gestionprotocole;
 	}
 }
