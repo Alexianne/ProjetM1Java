@@ -8,10 +8,12 @@ package version1;
 import java.awt.Color;
 import java.io.IOException;
 import static java.lang.System.in;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -33,8 +35,12 @@ public class JFApp extends javax.swing.JFrame {
         initComponents();
         this.id = id;
         this.client= (ClientConnect) c;
-        jLid.setText(id);
+        jLid.setText("ID : "+id);
         champRech.setText("");
+        if (("anonyme".equals(id))||("admin".equals(id))){
+        Onglet2.removeTabAt(1);
+        }
+        else {
         String req = "GETINFO "+id;
         System.out.println(req);
         try {
@@ -49,7 +55,7 @@ public class JFApp extends javax.swing.JFrame {
             Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,7 +65,7 @@ public class JFApp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        Onglet2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         champRech = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -81,7 +87,6 @@ public class JFApp extends javax.swing.JFrame {
         jTmail = new javax.swing.JTextField();
         jTtel = new javax.swing.JTextField();
         jTnais = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jCphone = new javax.swing.JComboBox<>();
@@ -103,6 +108,11 @@ public class JFApp extends javax.swing.JFrame {
             }
         });
 
+        jList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList);
 
         jLid.setText("jLabel1");
@@ -134,12 +144,12 @@ public class JFApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(champRech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Recherche", jPanel4);
+        Onglet2.addTab("Recherche", jPanel4);
 
         jLNom.setText("Nom");
 
@@ -174,14 +184,21 @@ public class JFApp extends javax.swing.JFrame {
             }
         });
 
-        jTmail.setText("mail");
         jTmail.setBorder(null);
+        jTmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTmailActionPerformed(evt);
+            }
+        });
 
-        jTtel.setText("tel");
         jTtel.setBorder(null);
 
-        jTnais.setText("jj/mm/aaaa");
         jTnais.setBorder(null);
+        jTnais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTnaisActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Visibilité :");
 
@@ -201,10 +218,12 @@ public class JFApp extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jButton2))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -227,11 +246,11 @@ public class JFApp extends javax.swing.JFrame {
                                         .addGap(19, 19, 19)
                                         .addComponent(jButton4))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTnais)
+                                            .addComponent(jTtel)
+                                            .addComponent(jTmail, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel5Layout.createSequentialGroup()
                                                 .addComponent(jLabel12)
@@ -243,30 +262,27 @@ public class JFApp extends javax.swing.JFrame {
                                                 .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(jLNom)
                             .addComponent(jLPrenom))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(41, 41, 41)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLNom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLPrenom)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLNom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLPrenom))
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -291,7 +307,7 @@ public class JFApp extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Mon Compte", jPanel5);
+        Onglet2.addTab("Mon Compte", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -299,18 +315,19 @@ public class JFApp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(Onglet2)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, Short.MAX_VALUE)
+                .addComponent(Onglet2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -320,10 +337,11 @@ public class JFApp extends javax.swing.JFrame {
             String req = "GETLIST "+cle;
             String retour = client.communiquer(req);
             String msgg[] = retour.split(" ");
-            int taille = msgg.length;
+            int taille = msgg.length-1;
             int j = taille;
-            
-             
+            System.out.println(taille);
+            System.out.println(msgg[1]);
+            System.out.println(msgg[2]);
             //System.out.println("err : "+msg[1]);
             if(taille==0){
                     jLid.setText("Aucun Résultat");
@@ -333,15 +351,13 @@ public class JFApp extends javax.swing.JFrame {
             else{
                     DefaultListModel model1 = new DefaultListModel();
                     String nom;
-                    for (int i=1;i <= taille/2;i++){
-                    nom = msgg[i]+""+msgg[j]; 
-                    model1.addElement(nom);
-            }     
-                    jList.setModel(model1);
+                    for(int i=1;i<=taille;i++){
+                    model1.addElement(msgg[i]+" "+msgg[j]);
+                    j--;
                     }
-                    
+                    jList.setModel(model1);
             
-            
+            }   
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -364,7 +380,7 @@ public class JFApp extends javax.swing.JFrame {
          if(jCnais.getSelectedItem().equals("Tous")) 
              visible = visible + 3;
          
-        String req = "MODIFINFO "+jLNom.getText()+" "+jLPrenom.getText()+" "+jTmail.getText()+" "+jTnais.getText()+" "+visible;
+        String req = "MODIFINFO "+id+" "+jLNom.getText()+" "+jLPrenom.getText()+" "+jTmail.getText()+" "+jTtel.getText()+" "+jTnais.getText()+" "+visible;
         try {
             String modif = client.communiquer(req);
             this.setVisible(false);
@@ -382,8 +398,30 @@ public class JFApp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_champRechActionPerformed
 
-    /**
-     * @param args the command line arguments
+    private void jTnaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTnaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTnaisActionPerformed
+
+    private void jTmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTmailActionPerformed
+
+    private void jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMouseClicked
+        // TODO add your handling code here:
+        
+        int rang = jList.getSelectedIndex();
+        String tmp = (String) jList.getModel().getElementAt(rang); 
+        System.out.println(tmp);
+        this.setVisible(false);
+        JFFicheUtilisateur fiche = new JFFicheUtilisateur(tmp,client);
+        fiche.setVisible(true);
+        
+         
+    }//GEN-LAST:event_jListMouseClicked
+
+    /** 
+     * @param args the command line ar
+     * guments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -414,12 +452,12 @@ public class JFApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane Onglet2;
     private javax.swing.JTextField champRech;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jCnais;
     private javax.swing.JComboBox<String> jCphone;
     private javax.swing.JLabel jLNom;
@@ -437,7 +475,6 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTmail;
     private javax.swing.JTextField jTnais;
     private javax.swing.JTextField jTtel;

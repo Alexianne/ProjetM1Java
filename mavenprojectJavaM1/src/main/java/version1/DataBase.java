@@ -139,6 +139,72 @@ public class DataBase {
             return idsearch;
         
     }
+            public static ArrayList<String> getinfo2(String nom,String prenom) {
+        //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
+        System.out.println(nom+" "+prenom);
+        String query = "SELECT nom FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+            ArrayList<String> info = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // SOLUTION PROVISOIRE DEBUT *******************************************************************
+        query = "SELECT prenom FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT email FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT telephone FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT naissance FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";;
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        // SOLUTION PROVISOIRE FIN *******************************************************************
+        return info;
+        }
+            
+            
         public static ArrayList<String> getinfo(String message) {
         //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
         System.out.println(message);
@@ -166,28 +232,6 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        query = "SELECT prenom FROM coordonnees WHERE id ='"+message+"'";
-        rst = selectDB(query);
-            
-        try {
-            while(rst.next() && add){
-                add = info.add(rst.getString(1));
-                System.out.println(info);
-            }       			
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        query = "SELECT nom FROM coordonnees WHERE id ='"+message+"'";
-        rst = selectDB(query);
-            
-        try {
-            while(rst.next() && add){
-                add = info.add(rst.getString(1));
-                System.out.println(info);
-            }       			
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
         query = "SELECT email FROM coordonnees WHERE id ='"+message+"'";
         rst = selectDB(query);
             
@@ -199,7 +243,7 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        query = "SELECT phone FROM coordonnees WHERE id ='"+message+"'";
+        query = "SELECT telephone FROM coordonnees WHERE id ='"+message+"'";
         rst = selectDB(query);
             
         try {
@@ -221,7 +265,7 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+      
         // SOLUTION PROVISOIRE FIN *******************************************************************
         return info;
         }

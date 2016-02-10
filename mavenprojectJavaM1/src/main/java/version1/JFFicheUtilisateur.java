@@ -5,17 +5,38 @@
  */
 package version1;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Alexandra
  */
 public class JFFicheUtilisateur extends javax.swing.JFrame {
-
+    private String nom;
+    ClientConnect client;
     /**
      * Creates new form JFFicheUtilisateur
      */
-    public JFFicheUtilisateur() {
+    public JFFicheUtilisateur(String nom, Object c) {
         initComponents();
+        this.nom=nom;
+        this.client = (ClientConnect) c;
+        String req = "GETINFO2 "+nom;
+        System.out.println(req);
+        try {
+            String info = client.communiquer(req);
+            String msg[] = info.split(" ");
+            jnom.setText(msg[1]);
+            jprenom.setText(msg[2]);
+            jmail.setText(msg[3]);
+            jtel.setText(msg[4]);
+            jnais.setText(msg[5]);
+        } catch (IOException ex) {
+            Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -39,6 +60,7 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jListDiplome = new javax.swing.JList<>();
         jdiplome = new javax.swing.JLabel();
+        jnais = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +83,8 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jListDiplome);
 
         jdiplome.setText("Diplômes : ");
+
+        jnais.setText("Naissance :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +110,8 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jnaiss)
                                     .addComponent(jmail)
-                                    .addComponent(jtel)))))
+                                    .addComponent(jtel)
+                                    .addComponent(jnais)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jcomp)))
@@ -113,7 +138,9 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
                 .addComponent(jmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jtel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jnais)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcomp)
                     .addComponent(jdiplome))
@@ -131,35 +158,6 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFFicheUtilisateur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFFicheUtilisateur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFFicheUtilisateur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFFicheUtilisateur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFFicheUtilisateur().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -170,6 +168,7 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
     private javax.swing.JLabel jcomp;
     private javax.swing.JLabel jdiplome;
     private javax.swing.JLabel jmail;
+    private javax.swing.JLabel jnais;
     private javax.swing.JLabel jnaiss;
     private javax.swing.JLabel jnom;
     private javax.swing.JLabel jprenom;
