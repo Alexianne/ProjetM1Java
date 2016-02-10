@@ -199,6 +199,17 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+        query = "SELECT id FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";;
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
       
         // SOLUTION PROVISOIRE FIN *******************************************************************
         return info;
@@ -270,20 +281,70 @@ public class DataBase {
         return info;
         }
    
-    static ArrayList<String> getinfouser(String id) {
-        String query = "SELECT * FROM coordonnees c, competence t,diplome d WHERE c.id ='"+id+"' and t.id='"+id+"' and d.id='"+id+"';'";
+    static ArrayList<String> getinfouser(String message) {
+        System.out.println(message);
+        String query = "SELECT diplome FROM diplome WHERE id ='"+message+"'";
         rst = selectDB(query);
         boolean add = true ;
-            ArrayList<String> name = new ArrayList<>();
+            ArrayList<String> info = new ArrayList<>();
         try {
             while(rst.next() && add){
-                add = name.add(rst.getString(1));
+                add = info.add(rst.getString(1));
+                System.out.println(info);
             }       			
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return name;
-    }
+        // SOLUTION PROVISOIRE DEBUT *******************************************************************
+        query = "SELECT annee FROM diplome WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT competence FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT niveau FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         query = "SELECT description FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
+        // SOLUTION PROVISOIRE FIN *******************************************************************
+        return info;
+        }
 
     static boolean addinfo(String id, String competence, String niv, String description, String diplome, String annee, double visible) {
         String query = "INSERT INTO competence c, diplome d  VALUES ('c."+id+"','c."+competence+"','c."+niv+"','c."+description+"','c."+visible+"','d."+id+"','d."+diplome+"','d."+annee+"','d."+visible+"')";

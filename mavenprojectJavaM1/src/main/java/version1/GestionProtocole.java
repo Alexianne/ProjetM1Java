@@ -130,6 +130,19 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
         
+        public String getinfouser(String message){
+                String msg[] = message.split(" ");
+		String id = msg[1];
+		try {
+			ArrayList<String> listinfo = servData.getinfouser(id);
+                        String res = String.join(" ", listinfo);
+			return "OK "+res;
+		}
+		catch (NullPointerException e){
+			return "ERREUR Récupération des NOMS Impossible";
+		}
+	}
+        
                 public String getinfo2(String message){
                 String msg[] = message.split(" ");
 		String nom = msg[1];
@@ -252,8 +265,11 @@ public class GestionProtocole implements Cloneable{
                 case "MODIFINFO":
 			result=modifinfo(message);
 			return result;
-                case "MGETINFO2":
+                case "GETINFO2":
                         result=getinfo2(message);
+			return result;
+                case "GETINFOUSER":
+                        result=getinfouser(message);
 			return result;
                 case "SUPPCOMPTE":
 			result=suppcompte(message);

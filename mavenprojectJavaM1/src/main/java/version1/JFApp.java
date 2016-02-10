@@ -51,6 +51,28 @@ public class JFApp extends javax.swing.JFrame {
             jTmail.setText(msg[3]);
             jTtel.setText(msg[4]);
             jTnais.setText(msg[5]);
+            
+            
+            String req3 = "GETINFOUSER "+id;
+            String dipcompt = client.communiquer(req3);
+            String msgs[] = dipcompt.split(" ");
+
+
+            System.out.println(msgs[1]);
+            System.out.println(msgs[2]);
+            //System.out.println("err : "+msg[1]);
+            DefaultListModel modeldip = new DefaultListModel();
+            modeldip.removeAllElements();
+            modeldip.addElement(msgs[1]+" "+msgs[2]);
+            jLDip.setModel(modeldip);    
+              
+            DefaultListModel modelcom = new DefaultListModel();
+            modelcom.removeAllElements();
+            modelcom.addElement(msgs[3]+" "+msgs[4]+" "+msgs[5]);
+            jLComp.setModel(modelcom);  
+
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,10 +99,10 @@ public class JFApp extends javax.swing.JFrame {
         jLPrenom = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        jLComp = new javax.swing.JList();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        jLDip = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -157,21 +179,11 @@ public class JFApp extends javax.swing.JFrame {
 
         jLabel5.setText("Compétences :");
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(jLComp);
 
         jLabel6.setText("Diplômes :");
 
-        jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(jLDip);
 
         jButton2.setText("Ajouter Compétence");
 
@@ -350,13 +362,13 @@ public class JFApp extends javax.swing.JFrame {
             }
             else{
                     DefaultListModel model1 = new DefaultListModel();
-                    String nom;
-                    for(int i=1;i<=taille;i++){
+                    for(int i=1;i<=taille/2;i++){
                     model1.addElement(msgg[i]+" "+msgg[j]);
                     j--;
                     }
                     jList.setModel(model1);
             
+               
             }   
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -412,7 +424,6 @@ public class JFApp extends javax.swing.JFrame {
         int rang = jList.getSelectedIndex();
         String tmp = (String) jList.getModel().getElementAt(rang); 
         System.out.println(tmp);
-        this.setVisible(false);
         JFFicheUtilisateur fiche = new JFFicheUtilisateur(tmp,client);
         fiche.setVisible(true);
         
@@ -460,6 +471,8 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jCnais;
     private javax.swing.JComboBox<String> jCphone;
+    private javax.swing.JList jLComp;
+    private javax.swing.JList jLDip;
     private javax.swing.JLabel jLNom;
     private javax.swing.JLabel jLPrenom;
     private javax.swing.JLabel jLabel11;
@@ -468,8 +481,6 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLid;
     private javax.swing.JList jList;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;

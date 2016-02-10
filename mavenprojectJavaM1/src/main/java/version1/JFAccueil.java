@@ -202,7 +202,7 @@ public class JFAccueil extends javax.swing.JFrame{
         // TODO add your handling code here:
          this.setVisible(false);
          JFApp fenetreApp = new JFApp("anonyme",client);
-            fenetreApp.setVisible(true);
+         fenetreApp.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
