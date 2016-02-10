@@ -30,6 +30,7 @@ public class JFAccueil extends javax.swing.JFrame{
         initComponents();
         mess.setVisible(false);
         mess.setForeground(Color.red);
+        client = new ClientConnect(Port);
     }
 
     /**
@@ -135,37 +136,37 @@ public class JFAccueil extends javax.swing.JFrame{
     private void jBconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconnectActionPerformed
         // TODO add your handling code here:
         try {
-            client = new ClientConnect(Port);
+            
             String pseudo;
             String pass;
-            //Socket leSocket;
             String req;
-           /*BufferedReader fluxEntreeSocket;
-            PrintStream fluxSortieSocket;
-            leSocket = new Socket("localhost", 7);*/
+            
             pseudo = jTpseudo.getText();
             pass = jTpass.getText();
+            //VERIFICATION CHAMPS NON VIDE
+            if ( (pseudo.equals(""))||(pass.equals(""))){
+            mess.setText("Completer l'ensemble des Champs ");
+            mess.setVisible(true); 
+            } else {
+             
             req = "AUTH "+pseudo+" "+pass;
             String retour = client.communiquer(req);
-            /*fluxSortieSocket = new PrintStream(leSocket.getOutputStream());
-            fluxSortieSocket.println(req);
-            fluxEntreeSocket = new BufferedReader(new InputStreamReader(leSocket.getInputStream()));
-            String retour = fluxEntreeSocket.readLine();
-            //System.out.println(retour);*/
             String msg[] = retour.split(" ");
-            //System.out.println("err : "+msg[1]);
+            System.out.println(msg[1]);
             if("ERR200".equals(msg[1])){
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
-                    client.fermer();
+                    
             }else{
+                    //System.out.println("test");
                     this.setVisible(false);
                     JFApp fenetreApp = new JFApp(msg[1]);
                     fenetreApp.setVisible(true);
-                    client.fermer();
+                    
             }
             
-        } catch (IOException ex) {
+        }
+        }catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
           

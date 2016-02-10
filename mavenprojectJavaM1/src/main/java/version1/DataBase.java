@@ -139,6 +139,22 @@ public class DataBase {
             return idsearch;
         
     }
+        public static ArrayList<String> getinfo(String message) {
+        //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
+        System.out.println(message);
+        String query = "SELECT nom, prenom ,email ,phone ,naissance FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+            ArrayList<String> name = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = name.add(rst.getString(1));
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return name;
+        }
    
     static ArrayList<String> getinfouser(String id) {
         String query = "SELECT * FROM coordonnees c, competence t,diplome d WHERE c.id ='"+id+"' and t.id='"+id+"' and d.id='"+id+"';'";

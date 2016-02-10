@@ -97,18 +97,18 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
 	
-	/*public String getlist(String message){
+	public String getlist(String message){
 		try {
                         String msg[] = message.split(" ");
 			String nom = msg[1];
-			ArrayList<String> list = DataBase.getlist(nom);
+			ArrayList<String> list = servData.getlist(nom);
                         String res = String.join(" ", list);
 			return "OK "+res;
 		}
 		catch (NullPointerException e){
 			return "ERREUR Récupération Données Impossible";
 		}
-	}*/
+	}
 
     /**
      *
@@ -121,8 +121,9 @@ public class GestionProtocole implements Cloneable{
                 String msg[] = message.split(" ");
 		String id = msg[1];
 		try {
-			ArrayList<String> listinfo = servData.getinfouser(id);
-			return "OK "+listinfo;
+			ArrayList<String> listinfo = servData.getinfo(id);
+                        String res = String.join(" ", listinfo);
+			return "OK "+res;
 		}
 		catch (NullPointerException e){
 			return "ERREUR Récupération des NOMS Impossible";
@@ -225,9 +226,9 @@ public class GestionProtocole implements Cloneable{
 		case "NEWUSER":
 			result=newuser(message);
 			return result;
-		/*case "GETLIST":
+		case "GETLIST":
 			result=getlist(message);
-			return result;*/
+			return result;
 		case "GETNOM":
 			result=getnom(message);
 			return result;
