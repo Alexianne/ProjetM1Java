@@ -22,11 +22,13 @@ public class JFInscription extends javax.swing.JFrame {
      * 
      * Creates new form JFInscription
      */
-    public JFInscription() {
+    public JFInscription(Object c) {
         initComponents();
         messErr.setVisible(false);
         messErr.setForeground(Color.red);
+        this.client= (ClientConnect) c;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -179,7 +181,7 @@ public class JFInscription extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          try {
              
-         client = new ClientConnect(Port);    
+    
          // DECLARATION VARIABLE 
          String id = null;
          String pseudo = jpseudo.getText();
@@ -227,12 +229,12 @@ public class JFInscription extends javax.swing.JFrame {
          String req2;
          req2 = "NEWUSER "+msg1[1]+" "+prenom+" "+nom+" "+mail+" "+phone+" "+naissance+" "+visible;
        
-            String retour =  client.communiquer(req2);
-            System.out.println(retour);
+         String retour =  client.communiquer(req2);
+         System.out.println(retour);
          // VERIFICATION
-            String msg2[] = retour.split(" "); 
-            if("true".equals(msg2[1])){
-                // AFFICHAGE VALIDATION INSCRIPTION
+         String msg2[] = retour.split(" "); 
+         if("true".equals(msg2[1])){
+               // AFFICHAGE VALIDATION INSCRIPTION
                this.setVisible(false);
                JFValidate valide = new JFValidate();
                valide.setVisible(true); 
@@ -279,12 +281,6 @@ public class JFInscription extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFInscription().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
