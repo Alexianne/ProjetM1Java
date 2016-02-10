@@ -142,18 +142,88 @@ public class DataBase {
         public static ArrayList<String> getinfo(String message) {
         //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
         System.out.println(message);
-        String query = "SELECT nom, prenom ,email ,phone ,naissance FROM coordonnees WHERE id ='"+message+"'";
+        String query = "SELECT nom FROM coordonnees WHERE id ='"+message+"'";
         rst = selectDB(query);
         boolean add = true ;
-            ArrayList<String> name = new ArrayList<>();
+            ArrayList<String> info = new ArrayList<>();
         try {
             while(rst.next() && add){
-                add = name.add(rst.getString(1));
+                add = info.add(rst.getString(1));
+                System.out.println(info);
             }       			
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return name;
+        // SOLUTION PROVISOIRE DEBUT *******************************************************************
+        query = "SELECT prenom FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT prenom FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT nom FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT email FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT phone FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT naissance FROM coordonnees WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // SOLUTION PROVISOIRE FIN *******************************************************************
+        return info;
         }
    
     static ArrayList<String> getinfouser(String id) {

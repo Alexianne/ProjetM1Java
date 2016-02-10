@@ -16,17 +16,16 @@ import java.util.logging.Logger;
 public class JFInscription extends javax.swing.JFrame {
 
     
-    ClientConnect client;
+    ClientConnect client1;
     private final static int Port = 7;
     /**
      * 
      * Creates new form JFInscription
      */
-    public JFInscription(Object c) {
+    public JFInscription() {
         initComponents();
         messErr.setVisible(false);
         messErr.setForeground(Color.red);
-        this.client= (ClientConnect) c;
     }
 
 
@@ -44,7 +43,7 @@ public class JFInscription extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jmdp2 = new javax.swing.JTextField();
         jmdp = new javax.swing.JTextField();
         jpseudo = new javax.swing.JTextField();
         jmail = new javax.swing.JTextField();
@@ -59,6 +58,10 @@ public class JFInscription extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         messErr = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jCphone = new javax.swing.JComboBox<>();
+        jCnais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +84,23 @@ public class JFInscription extends javax.swing.JFrame {
         jLabel9.setText("Téléphone : ");
 
         jButton1.setText("Valider");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         messErr.setText("messErr");
 
         jLabel10.setText("(YYYY-MM-DD)");
+
+        jLabel11.setText("Visibilité :");
+
+        jLabel12.setText("Visibilité :");
+
+        jCphone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Tous" }));
+
+        jCnais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Tous" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,26 +130,36 @@ public class JFInscription extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jnaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel10))
-                            .addComponent(jphone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jphone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1)
+                                .addComponent(jmdp2)
                                 .addComponent(jmdp)
                                 .addComponent(jpseudo)
                                 .addComponent(jnom)
                                 .addComponent(jprenom)
                                 .addComponent(jmail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
+                        .addContainerGap()
+                        .addComponent(jLabel10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
                         .addComponent(jButton1)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(messErr)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -146,7 +172,7 @@ public class JFInscription extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jmdp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -162,15 +188,20 @@ public class JFInscription extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11)
+                    .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jnaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel12)
+                    .addComponent(jCnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -180,8 +211,7 @@ public class JFInscription extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          try {
-             
-    
+         client1 = new ClientConnect(Port);
          // DECLARATION VARIABLE 
          String id = null;
          String pseudo = jpseudo.getText();
@@ -197,13 +227,33 @@ public class JFInscription extends javax.swing.JFrame {
           messErr.setText("Completer l'ensemble des Champs ");
           messErr.setVisible(true); 
          } else {
+             if(!pass.equals(jmdp2.getText())){
+                 
+             }else {
+                 
              
-         String req;
-         int visible  = 3333;
+             
+                  String req;
+         int visible = 0;
+         //VERIFICATION VISIBILITE
+         if(jCphone.getSelectedItem().equals("Admin"))
+             visible = 100;
+         if(jCphone.getSelectedItem().equals("User"))  
+             visible = 200;
+         if(jCphone.getSelectedItem().equals("Tous")) 
+             visible = 300;
+         if(jCnais.getSelectedItem().equals("Admin"))
+             visible = visible + 1;
+         if(jCnais.getSelectedItem().equals("User"))  
+             visible = visible + 2;
+         if(jCnais.getSelectedItem().equals("Tous")) 
+             visible = visible + 3;
+         
+         // Champ visiblilité 101/102/103 201/202/203 301/302/303
          
          // Création d'un nouvell utilisateur
          req = "NEWAUTH "+pseudo+" "+pass;
-         String rep = client.communiquer(req);
+         String rep = client1.communiquer(req);
          System.out.println(rep);
          
          // VERIFICATION REPONSE 
@@ -214,7 +264,7 @@ public class JFInscription extends javax.swing.JFrame {
             }else{
           // Connexion pour récupérer ID AVEC LA REQUETE AUTH
          String req1 = "AUTH "+pseudo+" "+pass;
-         String Id = client.communiquer(req1);
+         String Id = client1.communiquer(req1);
          //AFFICHAGE TEST
          System.out.println(Id);
          // VERIFICATION REPONSE 
@@ -229,13 +279,16 @@ public class JFInscription extends javax.swing.JFrame {
          String req2;
          req2 = "NEWUSER "+msg1[1]+" "+prenom+" "+nom+" "+mail+" "+phone+" "+naissance+" "+visible;
        
-         String retour =  client.communiquer(req2);
+         String retour =  client1.communiquer(req2);
          System.out.println(retour);
          // VERIFICATION
          String msg2[] = retour.split(" "); 
          if("true".equals(msg2[1])){
-               // AFFICHAGE VALIDATION INSCRIPTION
+               // AFFICHAGE De la PAGE UNE FOIS CONNECT (Envoie de l'id)
                this.setVisible(false);
+               JFApp app = new JFApp(msg1[1],client1);
+               app.setVisible(true);
+               // AFFICHAGE VALIDATION INSCRIPTION
                JFValidate valide = new JFValidate();
                valide.setVisible(true); 
                
@@ -245,6 +298,7 @@ public class JFInscription extends javax.swing.JFrame {
                 messErr.setText("Erreur Creation");
                 messErr.setVisible(true);
             }
+        }
         }
         }
         }
@@ -285,8 +339,12 @@ public class JFInscription extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jCnais;
+    private javax.swing.JComboBox<String> jCphone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -295,9 +353,9 @@ public class JFInscription extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jmail;
     private javax.swing.JTextField jmdp;
+    private javax.swing.JTextField jmdp2;
     private javax.swing.JTextField jnaissance;
     private javax.swing.JTextField jnom;
     private javax.swing.JTextField jphone;

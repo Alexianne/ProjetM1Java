@@ -61,7 +61,7 @@ public class ServeurConnect {
     }
 
     /**
-     * Lancement Serveur ( 2 parametres necessaires port et gestionnaire proto
+     * Lancement Serveur ( 2 parametres necessaires port et gestionnaire proto)
      */
     public void start()// Lancer un serveur 
     {

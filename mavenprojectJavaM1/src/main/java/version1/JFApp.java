@@ -5,6 +5,7 @@
  */
 package version1;
 
+import java.awt.Color;
 import java.io.IOException;
 import static java.lang.System.in;
 import java.util.logging.Level;
@@ -17,25 +18,25 @@ import javax.swing.JList;
  * @author Alexandra
  */
 public class JFApp extends javax.swing.JFrame {
-    ClientConnect c1;
     private final static int Port = 7;
-
     /**
      * Creates new form JFApp
      */
     private String id;
-    
+    ClientConnect client;
     /**
      *
      * @param id
+     * @param client
      */
-    public JFApp(String id) {
-        c1 = new ClientConnect(Port);
+    public JFApp(String id, Object c) {
         initComponents();
         this.id = id;
+        this.client= (ClientConnect) c;
         jLid.setText(id);
-        champRech.setText("");/*
+        champRech.setText("");
         String req = "GETINFO "+id;
+        System.out.println(req);
         try {
             String info = client.communiquer(req);
             String msg[] = info.split(" ");
@@ -46,7 +47,7 @@ public class JFApp extends javax.swing.JFrame {
             jTnais.setText(msg[5]);
         } catch (IOException ex) {
             Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
 
     /**
@@ -81,6 +82,10 @@ public class JFApp extends javax.swing.JFrame {
         jTtel = new javax.swing.JTextField();
         jTnais = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jCphone = new javax.swing.JComboBox<>();
+        jCnais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,17 +174,22 @@ public class JFApp extends javax.swing.JFrame {
             }
         });
 
-        jTmail.setEditable(false);
         jTmail.setText("mail");
         jTmail.setBorder(null);
 
-        jTtel.setEditable(false);
         jTtel.setText("tel");
         jTtel.setBorder(null);
 
-        jTnais.setEditable(false);
         jTnais.setText("jj/mm/aaaa");
         jTnais.setBorder(null);
+
+        jLabel11.setText("Visibilité :");
+
+        jLabel12.setText("Visibilité :");
+
+        jCphone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Tous" }));
+
+        jCnais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Tous" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -206,7 +216,7 @@ public class JFApp extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,12 +226,24 @@ public class JFApp extends javax.swing.JFrame {
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
                                         .addComponent(jButton4))
-                                    .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jCnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addComponent(jLabel11)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(jLNom)
                             .addComponent(jLPrenom))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -236,12 +258,23 @@ public class JFApp extends javax.swing.JFrame {
                         .addComponent(jLPrenom))
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTtel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jCphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jCnais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)))
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -282,23 +315,32 @@ public class JFApp extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            
+           
             String cle = champRech.getText();
             String req = "GETLIST "+cle;
-            String retour = c1.communiquer(req);
-            String msg[] = retour.split(" ");
-            int taille = msg.length;
+            String retour = client.communiquer(req);
+            String msgg[] = retour.split(" ");
+            int taille = msgg.length;
             int j = taille;
+            
+             
             //System.out.println("err : "+msg[1]);
-            if("ERR200".equals(msg[1])){
-                                      
-            }else{
+            if(taille==0){
+                    jLid.setText("Aucun Résultat");
+                    jLid.setForeground(Color.red);
+                    jLid.setVisible(true);                  
+            }
+            else{
                     DefaultListModel model1 = new DefaultListModel();
-                    for(int i=1; i<=taille; i++){
-                        model1.addElement(msg[i]);
+                    String nom;
+                    for (int i=1;i <= taille/2;i++){
+                    nom = msgg[i]+""+msgg[j]; 
+                    model1.addElement(nom);
+            }     
+                    jList.setModel(model1);
                     }
                     
-            }
+            
             
         } catch (IOException ex) {
             Logger.getLogger(JFAccueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,7 +349,33 @@ public class JFApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        int visible = 0;
+         //VERIFICATION VISIBILITE
+         if(jCphone.getSelectedItem().equals("Admin"))
+             visible = 100;
+         if(jCphone.getSelectedItem().equals("User"))  
+             visible = 200;
+         if(jCphone.getSelectedItem().equals("Tous")) 
+             visible = 300;
+         if(jCnais.getSelectedItem().equals("Admin"))
+             visible = visible + 1;
+         if(jCnais.getSelectedItem().equals("User"))  
+             visible = visible + 2;
+         if(jCnais.getSelectedItem().equals("Tous")) 
+             visible = visible + 3;
+         
+        String req = "MODIFINFO "+jLNom.getText()+" "+jLPrenom.getText()+" "+jTmail.getText()+" "+jTnais.getText()+" "+visible;
+        try {
+            String modif = client.communiquer(req);
+            this.setVisible(false);
+            JFApp app = new JFApp(id,client);
+            app.setVisible(true);
+            JFValidate2 valide = new JFValidate2();
+            valide.setVisible(true); 
+            
+        } catch (IOException ex) {
+            Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void champRechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champRechActionPerformed
@@ -352,8 +420,12 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jCnais;
+    private javax.swing.JComboBox<String> jCphone;
     private javax.swing.JLabel jLNom;
     private javax.swing.JLabel jLPrenom;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLid;
