@@ -37,8 +37,8 @@ public class JFDialogue extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        jTextToSend = new javax.swing.JTextArea();
+        jBSend = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jnom = new javax.swing.JLabel();
 
@@ -51,12 +51,17 @@ public class JFDialogue extends javax.swing.JFrame {
         jTextArea1.setText("Message reçu");
         jScrollPane1.setViewportView(jTextArea1);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("Nouveau message...");
-        jScrollPane2.setViewportView(jTextArea2);
+        jTextToSend.setColumns(20);
+        jTextToSend.setRows(5);
+        jTextToSend.setText("Nouveau message...");
+        jScrollPane2.setViewportView(jTextToSend);
 
-        jButton1.setText("Envoyer");
+        jBSend.setText("Envoyer");
+        jBSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSendActionPerformed(evt);
+            }
+        });
 
         jnom.setText("nom : ");
 
@@ -74,7 +79,7 @@ public class JFDialogue extends javax.swing.JFrame {
                         .addComponent(jScrollPane2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jBSend))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -103,12 +108,17 @@ public class JFDialogue extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(jBSend)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSendActionPerformed
+        // TODO add your handling code here:
+        String message = jTextToSend.getText();
+    }//GEN-LAST:event_jBSendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,13 +128,13 @@ public class JFDialogue extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBSend;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextToSend;
     private javax.swing.JLabel jnom;
     // End of variables declaration//GEN-END:variables
 }
