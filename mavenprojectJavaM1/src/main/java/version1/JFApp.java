@@ -325,9 +325,14 @@ public class JFApp extends javax.swing.JFrame {
 
         Onglet2.addTab("Mon Compte", jPanel5);
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jList1);
 
-        jLabel1.setText("Personnes connectée (double clic pour envoyer un message) :");
+        jLabel1.setText("Personnes connectée (clic pour envoyer un message) :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -339,7 +344,7 @@ public class JFApp extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 161, Short.MAX_VALUE)))
+                        .addGap(0, 196, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -462,6 +467,15 @@ public class JFApp extends javax.swing.JFrame {
         
          
     }//GEN-LAST:event_jListMouseClicked
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        int rang = jList.getSelectedIndex();
+        String tmp = (String) jList.getModel().getElementAt(rang); 
+        System.out.println(tmp);
+        JFDialogue dialogue = new JFDialogue(tmp,client);
+        dialogue.setVisible(true);
+    }//GEN-LAST:event_jList1MouseClicked
 
     /** 
      * @param args the command line ar
