@@ -1,0 +1,35 @@
+CREATE DATABASE Authentification character set 'utf8';
+USE Authentification;
+
+CREATE  TABLE `Authentification`.`login` (
+  `id` VARCHAR(36) NOT NULL ,
+  `pseudo` VARCHAR(45) NULL ,
+  `mdp` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) );
+
+CREATE DATABASE Donnees_utilisateur character set 'utf8';
+USE Donnees_utilisateur;
+  
+  CREATE  TABLE `Donnees_utilisateur`.`coordonnees` (
+  `id` VARCHAR(36) NOT NULL ,
+  `nom` VARCHAR(45) NULL ,
+  `prenom` VARCHAR(45) NULL ,
+  `email` VARCHAR(150) NULL ,
+  `telephone` VARCHAR(45) NULL ,
+  `naissance` DATE NULL ,
+  `visibilite` INT(11) NULL ,
+  PRIMARY KEY (`id`) );
+  
+  CREATE  TABLE `Donnees_utilisateur`.`competence` (
+  `id` VARCHAR(36) NOT NULL ,
+  `competence` VARCHAR(45) NULL ,
+  `niveau` INT(11) NULL ,
+  `description` VARCHAR(250) NULL ,
+  `visibilite` INT(11) NULL ,
+  PRIMARY KEY (`id`) );
+  
+  CREATE  TABLE `Donnees_utilisateur`.`diplome` (
+  `id` VARCHAR(36) NOT NULL ,
+  `diplome` VARCHAR(45) NULL ,
+  `annee` YEAR NULL ,
+  PRIMARY KEY (`id`) );
