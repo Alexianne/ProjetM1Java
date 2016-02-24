@@ -248,7 +248,7 @@ public class JFInscription extends javax.swing.JFrame {
              visible = visible + 2;
          if(jCnais.getSelectedItem().equals("Tous")) 
              visible = visible + 3;
-         
+         System.out.println(visible);
          // Champ visiblilité 101/102/103 201/202/203 301/302/303
          
          // Création d'un nouvell utilisateur
@@ -278,7 +278,7 @@ public class JFInscription extends javax.swing.JFrame {
          // REQUETE NEWUSER POUR RENSEIGNER LA BASE DE DONNEE UTILISATEUR    
          String req2;
          req2 = "NEWUSER "+msg1[1]+" "+prenom+" "+nom+" "+mail+" "+phone+" "+naissance+" "+visible;
-       
+         System.out.println(req2);
          String retour =  client1.communiquer(req2);
          System.out.println(retour);
          // VERIFICATION

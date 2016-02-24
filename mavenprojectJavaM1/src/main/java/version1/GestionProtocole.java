@@ -136,6 +136,8 @@ public class GestionProtocole implements Cloneable{
 		try {
 			ArrayList<String> listinfo = servData.getinfouser(id);
                         String res = String.join(" ", listinfo);
+                        if ("".equals(res))
+                            res = "null";
 			return "OK "+res;
 		}
 		catch (NullPointerException e){

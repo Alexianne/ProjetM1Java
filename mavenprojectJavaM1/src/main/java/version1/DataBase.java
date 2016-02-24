@@ -340,7 +340,8 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+ 
+            
       
         // SOLUTION PROVISOIRE FIN *******************************************************************
         return info;

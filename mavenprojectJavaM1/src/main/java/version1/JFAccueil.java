@@ -159,7 +159,7 @@ public class JFAccueil extends javax.swing.JFrame{
             pseudo = jTpseudo.getText();
             pass = jTpass.getText();
             //VERIFICATION CHAMPS NON VIDE
-            if ( (pseudo.equals(""))||(pass.equals(""))){
+            if ( ("".equals(pseudo))||("".equals(pass))){
             mess.setText("Completer l'ensemble des Champs ");
             mess.setVisible(true); 
             } else {
@@ -171,7 +171,7 @@ public class JFAccueil extends javax.swing.JFrame{
             if("ERR200".equals(msg[1])){
                     mess.setText("Erreur d'authentification");
                     mess.setVisible(true);
-                    //client.fermer();
+                    
             }else{
                     //System.out.println("test");
                     this.setVisible(false);

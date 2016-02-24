@@ -55,22 +55,23 @@ public class JFApp extends javax.swing.JFrame {
             
             String req3 = "GETINFOUSER "+id;
             String dipcompt = client.communiquer(req3);
+            
             String msgs[] = dipcompt.split(" ");
-
-
             System.out.println(msgs[1]);
-            System.out.println(msgs[2]);
             //System.out.println("err : "+msg[1]);
-            DefaultListModel modeldip = new DefaultListModel();
-            modeldip.removeAllElements();
-            modeldip.addElement(msgs[1]+" "+msgs[2]);
-            jLDip.setModel(modeldip);    
-              
-            DefaultListModel modelcom = new DefaultListModel();
-            modelcom.removeAllElements();
-            modelcom.addElement(msgs[3]+" "+msgs[4]+" "+msgs[5]);
-            jLComp.setModel(modelcom);  
-
+            if ("null".equals(msgs[1])){
+                System.out.println("Auncune compétence/diplome trouvé");
+            } else {
+                DefaultListModel modeldip = new DefaultListModel();
+                modeldip.removeAllElements();
+                modeldip.addElement(msgs[1]+" "+msgs[2]);
+                jLDip.setModel(modeldip);
+                
+                DefaultListModel modelcom = new DefaultListModel();
+                modelcom.removeAllElements();
+                modelcom.addElement(msgs[3]+" "+msgs[4]+" "+msgs[5]); 
+                jLComp.setModel(modelcom);
+            }
             
             
         } catch (IOException ex) {

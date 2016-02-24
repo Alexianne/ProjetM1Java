@@ -80,7 +80,7 @@ public class ClientManage extends Thread
             e.printStackTrace();
         }
     }
-    public void start()
+    public void run()
     {
         try
         {

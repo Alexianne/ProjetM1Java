@@ -26,6 +26,7 @@ public class ClientConnect {
     private Socket socketService;
     private PrintStream fluxSortieSocket;
     private BufferedReader fluxEntreeSocket;
+    
 
     /**
      *
