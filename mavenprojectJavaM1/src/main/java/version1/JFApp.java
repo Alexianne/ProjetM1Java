@@ -53,23 +53,32 @@ public class JFApp extends javax.swing.JFrame {
             jTnais.setText(msg[5]);
             
             
-            String req3 = "GETINFOUSER "+id;
-            String dipcompt = client.communiquer(req3);
+            String req3 = "GETINFOUSERDIP "+id;
+            String compt = client.communiquer(req3);
             
-            String msgs[] = dipcompt.split(" ");
-            System.out.println(msgs[1]);
+            String msgd[] = compt.split(" ");
+            
             //System.out.println("err : "+msg[1]);
-            if ("null".equals(msgs[1])){
-                System.out.println("Auncune compétence/diplome trouvé");
+            if ("null".equals(msgd[1])){
+                System.out.println("Auncun diplome trouvé");
             } else {
                 DefaultListModel modeldip = new DefaultListModel();
                 modeldip.removeAllElements();
-                modeldip.addElement(msgs[1]+" "+msgs[2]);
+                modeldip.addElement(msgd[1]+" "+msgd[2]);
                 jLDip.setModel(modeldip);
-                
+            }
+            String req4 = "GETINFOUSERCOMP "+id;
+            String dip = client.communiquer(req3);
+            
+            String msgc[] = dip.split(" ");
+            
+            //System.out.println("err : "+msg[1]);
+            if ("null".equals(msgc[1])){
+                System.out.println("Auncune compétence trouvé");
+            }else{
                 DefaultListModel modelcom = new DefaultListModel();
                 modelcom.removeAllElements();
-                modelcom.addElement(msgs[3]+" "+msgs[4]+" "+msgs[5]); 
+                modelcom.addElement(msgc[1]+" "+msgc[2]+" "+msgc[3]); 
                 jLComp.setModel(modelcom);
             }
             

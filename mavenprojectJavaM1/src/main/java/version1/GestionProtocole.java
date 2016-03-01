@@ -144,6 +144,20 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Récupération des NOMS Impossible";
 		}
 	}
+                public String getinfouser1(String message){
+                String msg[] = message.split(" ");
+		String id = msg[1];
+		try {
+			ArrayList<String> listinfo = servData.getinfouser1(id);
+                        String res = String.join(" ", listinfo);
+                        if ("".equals(res))
+                            res = "null";
+			return "OK "+res;
+		}
+		catch (NullPointerException e){
+			return "ERREUR Récupération des NOMS Impossible";
+		}
+	}
         
                 public String getinfo2(String message){
                 String msg[] = message.split(" ");
@@ -203,17 +217,28 @@ public class GestionProtocole implements Cloneable{
      * @param message
      * @return
      */
-    public String addinfo(String message){
+    public String addinfocomp(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];
                         String competence = msg[2];
 			String niv = msg[3];
                         String description = msg[4];
-                        String diplome = msg[5];
-                        String annee = msg[6];
-                        double visible = Double.parseDouble(msg[7]);
-			boolean info = servData.addinfo(id,competence,niv,description,diplome,annee,visible);
+                        double visible = Double.parseDouble(msg[5]);
+			boolean info = servData.addinfocomp(id,competence,niv,description,visible);
+                        return "OK "+info;
+		} catch (NullPointerException e) {
+			return "ERREUR DATA Modification compte ";
+		}
+	}
+    
+      public String addinfodip(String message){
+		try {
+			String msg[] = message.split(" ");
+			String id = msg[1];
+                        String diplome = msg[2];
+                        String annee = msg[3];
+			boolean info = servData.addinfodip(id,diplome,annee);
                         return "OK "+info;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA Modification compte ";
@@ -270,14 +295,20 @@ public class GestionProtocole implements Cloneable{
                 case "GETINFO2":
                         result=getinfo2(message);
 			return result;
-                case "GETINFOUSER":
+                case "GETINFOUSERDIP":
                         result=getinfouser(message);
+			return result;
+                case "GETINFOUSERCOMP":
+                        result=getinfouser1(message);
 			return result;
                 case "SUPPCOMPTE":
 			result=suppcompte(message);
 			return result;
-                case "ADDINFO":
-                        result=addinfo(message);
+                case "ADDINFODIP":
+                        result=addinfodip(message);
+			return result;
+                case "ADDINFOCOMP":
+                        result=addinfocomp(message);
 			return result;
                 default:
 			return "La requête est inconnue";

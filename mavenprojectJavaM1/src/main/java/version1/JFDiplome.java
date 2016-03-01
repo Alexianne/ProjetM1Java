@@ -5,6 +5,10 @@
  */
 package version1;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Brice
@@ -46,6 +50,7 @@ public class JFDiplome extends javax.swing.JFrame {
         Tan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         Bajout = new javax.swing.JButton();
+        messErr = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,15 +98,18 @@ public class JFDiplome extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Tdip, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Tan, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(163, Short.MAX_VALUE))
+                                .addComponent(Tan, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(messErr, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(messErr, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(Tdip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -109,12 +117,13 @@ public class JFDiplome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(Bajout)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void TdipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TdipActionPerformed
@@ -126,14 +135,34 @@ public class JFDiplome extends javax.swing.JFrame {
     }//GEN-LAST:event_TanActionPerformed
 
     private void BajoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajoutActionPerformed
-        // TODO add your handling code here:
+        String diplome = Tdip.getText();
+        String annee = Tan.getText();
+        String req = "ADDINFODIP "+id+" "+diplome+" "+annee;
+        String rep = null;
+        try {
+            rep = client.communiquer(req);
+        } catch (IOException ex) {
+            Logger.getLogger(JFDiplome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         System.out.println(rep);
+         String msg[] = rep.split(" ");
+           if("ERR200".equals(msg[1])){
+                messErr.setText("Erreur Ajout !");
+                messErr.setVisible(true);
+            }else{
+        this.setVisible(false);
+        JFApp app = new JFApp(id,client);
+        app.setVisible(true);
+        JFValidate3 valide = new JFValidate3();
+        valide.setVisible(true);
+        
+        
     }//GEN-LAST:event_BajoutActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -172,5 +201,6 @@ public class JFDiplome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel messErr;
     // End of variables declaration//GEN-END:variables
 }

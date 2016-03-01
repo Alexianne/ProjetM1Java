@@ -307,9 +307,15 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        query = "SELECT competence FROM competence WHERE id ='"+message+"'";
+        return info;
+    }
+        
+  static ArrayList<String> getinfouser1(String message) {
+      
+        String query = "SELECT competence FROM competence WHERE id ='"+message+"'";
         rst = selectDB(query);
-            
+        boolean add = true ;
+        ArrayList<String> info = new ArrayList<>();
         try {
             while(rst.next() && add){
                 add = info.add(rst.getString(1));
@@ -340,18 +346,19 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
-            
-      
-        // SOLUTION PROVISOIRE FIN *******************************************************************
+    
         return info;
-        }
+        }// SOLUTION PROVISOIRE FIN *******************************************************************
 
-    static boolean addinfo(String id, String competence, String niv, String description, String diplome, String annee, double visible) {
-        String query = "INSERT INTO competence c, diplome d  VALUES ('c."+id+"','c."+competence+"','c."+niv+"','c."+description+"','c."+visible+"','d."+id+"','d."+diplome+"','d."+annee+"','d."+visible+"')";
+    static boolean addinfocomp(String id, String competence, String niv, String description, double visible) {
+        String query = "INSERT INTO competence  VALUES ('"+id+"','"+competence+"','"+niv+"','"+description+"','"+visible+"')";
         return insertDB(query);
     }
 
+    static boolean addinfodip(String id, String diplome, String annee) {
+        String query = "INSERT INTO diplome  VALUES ('"+id+"','"+diplome+"','"+annee+"')";
+        return insertDB(query);
+    }
 
 
     boolean modifinfo(String id,String prenom, String nom, String email, String phone, String naissance, double visible) {
