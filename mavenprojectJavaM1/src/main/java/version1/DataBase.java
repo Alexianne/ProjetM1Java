@@ -365,6 +365,99 @@ public class DataBase {
         String query = "Update coordonnees SET nom='"+nom+"',prenom='"+prenom+"',email='"+email+"',telephone='"+phone+"',naissance='"+naissance+"',visibilite='"+visible+"' WHERE id = '"+id+"'";
         return insertDB(query);
     }
+    
+    
+      static ArrayList<String> getinfouser2(String message) {
+            System.out.println(message);
+        String query = "SELECT diplome FROM diplome WHERE id ='"+message+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+            ArrayList<String> info = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // SOLUTION PROVISOIRE DEBUT *******************************************************************
+        query = "SELECT annee FROM diplome WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        query = "SELECT competence FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+        
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        query = "SELECT niveau FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         query = "SELECT description FROM competence WHERE id ='"+message+"'";
+        rst = selectDB(query);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+        return info;
+        }
+
+       boolean setonline(String id) {
+       int online = 1;
+       String query = "UPDATE coordonees SET on='"+online+"' WHERE id ='"+id+"';";
+       return insertDB(query);
+    }
+    
+    public static ArrayList<String> online() {
+        int online = 1;
+       String query = "SELECT prenom FROM coordonnees WHERE on='"+online+"'";
+       rst = selectDB(query);
+       boolean add = true ;
+            ArrayList<String> id = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = id.add(rst.getString(1));
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return id;
+    }
+
+
+
+
+
+
 }
     
 

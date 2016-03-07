@@ -4,15 +4,21 @@
  * and open the template in the editor.
  */
 package version1;
-
+import com.mysql.jdbc.Messages;
 import java.awt.Color;
+import static java.awt.Color.red;
+import static java.awt.Color.white;
+import java.awt.List;
 import java.io.IOException;
 import static java.lang.System.in;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -24,6 +30,7 @@ public class JFApp extends javax.swing.JFrame {
     /**
      * Creates new form JFApp
      */
+    
     private String id;
     ClientConnect client;
     /**
@@ -51,7 +58,28 @@ public class JFApp extends javax.swing.JFrame {
             jTmail.setText(msg[3]);
             jTtel.setText(msg[4]);
             jTnais.setText(msg[5]);
+            String elemco = msg[1]+" "+msg[2];
             
+            // MISE A JOUR DE LA LISTE DES PERSONNES CONNECTEES
+            
+           DefaultListModel modelc = new DefaultListModel();
+                ListModel<String> modelconnect = Jconnect.getModel();
+                int nbrco = modelconnect.getSize();
+               System.out.println(nbrco);
+               for (int i=1;i<nbrco;i++){
+                String connected = modelconnect.getElementAt(0);
+                System.out.println(connected);
+                connected = modelconnect.getElementAt(1);
+                System.out.println(connected);
+                modelc.addElement(connected);
+                }
+
+            modelc.addElement(msg[1]+" "+msg[2]); 
+            Jconnect.setModel(modelc);
+             modelconnect = Jconnect.getModel();
+            nbrco = modelconnect.getSize();
+            System.out.println(nbrco);
+         
             
             String req3 = "GETINFOUSERDIP "+id;
             String compt = client.communiquer(req3);
@@ -63,12 +91,11 @@ public class JFApp extends javax.swing.JFrame {
                 System.out.println("Auncun diplome trouvé");
             } else {
                 DefaultListModel modeldip = new DefaultListModel();
-                modeldip.removeAllElements();
                 modeldip.addElement(msgd[1]+" "+msgd[2]);
                 jLDip.setModel(modeldip);
             }
             String req4 = "GETINFOUSERCOMP "+id;
-            String dip = client.communiquer(req3);
+            String dip = client.communiquer(req4);
             
             String msgc[] = dip.split(" ");
             
@@ -77,7 +104,6 @@ public class JFApp extends javax.swing.JFrame {
                 System.out.println("Auncune compétence trouvé");
             }else{
                 DefaultListModel modelcom = new DefaultListModel();
-                modelcom.removeAllElements();
                 modelcom.addElement(msgc[1]+" "+msgc[2]+" "+msgc[3]); 
                 jLComp.setModel(modelcom);
             }
@@ -125,8 +151,9 @@ public class JFApp extends javax.swing.JFrame {
         jCnais = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        Jconnect = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -345,14 +372,22 @@ public class JFApp extends javax.swing.JFrame {
 
         Onglet2.addTab("Mon Compte", jPanel5);
 
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Jconnect.setModel(Jconnect.getModel());
+        Jconnect.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
+                JconnectMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(jList1);
+        jScrollPane4.setViewportView(Jconnect);
 
-        jLabel1.setText("Personnes connectée (clic pour envoyer un message) :");
+        jLabel1.setText("Personnes connectée :");
+
+        jButton5.setText("Actualiser");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -361,19 +396,24 @@ public class JFApp extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 196, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -479,8 +519,7 @@ public class JFApp extends javax.swing.JFrame {
     private void jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMouseClicked
         // TODO add your handling code here:
         
-        int rang = jList.getSelectedIndex();
-        String tmp = (String) jList.getModel().getElementAt(rang); 
+        String tmp = (String) jList.getSelectedValue(); 
         System.out.println(tmp);
         JFFicheUtilisateur fiche = new JFFicheUtilisateur(tmp,client);
         fiche.setVisible(true);
@@ -488,14 +527,11 @@ public class JFApp extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jListMouseClicked
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+    private void JconnectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JconnectMouseClicked
         // TODO add your handling code here:
-        int rang = jList.getSelectedIndex();
-        String tmp = (String) jList.getModel().getElementAt(rang); 
-        System.out.println(tmp);
-        JFDialogue dialogue = new JFDialogue(tmp,client);
-        dialogue.setVisible(true);
-    }//GEN-LAST:event_jList1MouseClicked
+        
+
+    }//GEN-LAST:event_JconnectMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
             
@@ -509,6 +545,12 @@ public class JFApp extends javax.swing.JFrame {
         JFDiplome diplome = new JFDiplome(id ,client);
         diplome.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+
+    
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /** 
      * @param args the command line ar
@@ -543,12 +585,14 @@ public class JFApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> Jconnect;
     private javax.swing.JTabbedPane Onglet2;
     private javax.swing.JTextField champRech;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jCnais;
     private javax.swing.JComboBox<String> jCphone;
     private javax.swing.JList jLComp;
@@ -562,7 +606,6 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLid;
     private javax.swing.JList jList;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

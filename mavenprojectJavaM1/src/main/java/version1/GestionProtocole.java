@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.UUID;
+import javax.swing.DefaultListModel;
 
 
 /**
@@ -20,6 +21,7 @@ public class GestionProtocole implements Cloneable{
 	// Attributs
 	private AuthentificationBase servAuth;
         private DataBase servData;
+        DefaultListModel modelc = new DefaultListModel();
 	// Contructeur
 
     /**
@@ -115,6 +117,7 @@ public class GestionProtocole implements Cloneable{
      * @param message
      * @return
      */
+        
 
         
         public String getinfo(String message){
@@ -149,6 +152,20 @@ public class GestionProtocole implements Cloneable{
 		String id = msg[1];
 		try {
 			ArrayList<String> listinfo = servData.getinfouser1(id);
+                        String res = String.join(" ", listinfo);
+                        if ("".equals(res))
+                            res = "null";
+			return "OK "+res;
+		}
+		catch (NullPointerException e){
+			return "ERREUR Récupération des NOMS Impossible";
+		}
+	}
+                 public String getinfouser2(String message){
+                String msg[] = message.split(" ");
+		String id = msg[1];
+		try {
+			ArrayList<String> listinfo = servData.getinfouser2(id);
                         String res = String.join(" ", listinfo);
                         if ("".equals(res))
                             res = "null";
@@ -288,7 +305,7 @@ public class GestionProtocole implements Cloneable{
 			return result;
                 case "GETINFO":
 			result=getinfo(message);
-			return result;
+			return result;     
                 case "MODIFINFO":
 			result=modifinfo(message);
 			return result;
@@ -297,6 +314,9 @@ public class GestionProtocole implements Cloneable{
 			return result;
                 case "GETINFOUSERDIP":
                         result=getinfouser(message);
+			return result;
+                case "GETINFOUSER":
+                        result=getinfouser2(message);
 			return result;
                 case "GETINFOUSERCOMP":
                         result=getinfouser1(message);

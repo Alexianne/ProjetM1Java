@@ -53,7 +53,7 @@ public class ClientConnect {
      * @return
      * @throws IOException
      */
-
+    
     public String communiquer(String message) throws IOException
     {
         //Verification :

@@ -123,6 +123,7 @@ public class AuthentificationBase {
             return id;
     }
 
+    
     boolean suppcompte(String id) {
         String query = "DELETE FROM login WHERE id='"+id+"'";
         return insertAuth(query);
