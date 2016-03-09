@@ -61,7 +61,7 @@ public class JFApp extends javax.swing.JFrame {
             String elemco = msg[1]+" "+msg[2];
             
             // MISE A JOUR DE LA LISTE DES PERSONNES CONNECTEES
-            
+            /*
            DefaultListModel modelc = new DefaultListModel();
                 ListModel<String> modelconnect = Jconnect.getModel();
                 int nbrco = modelconnect.getSize();
@@ -79,7 +79,7 @@ public class JFApp extends javax.swing.JFrame {
              modelconnect = Jconnect.getModel();
             nbrco = modelconnect.getSize();
             System.out.println(nbrco);
-         
+         */
             
             String req3 = "GETINFOUSERDIP "+id;
             String compt = client.communiquer(req3);
@@ -150,9 +150,6 @@ public class JFApp extends javax.swing.JFrame {
         jCphone = new javax.swing.JComboBox<>();
         jCnais = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        Jconnect = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -372,17 +369,7 @@ public class JFApp extends javax.swing.JFrame {
 
         Onglet2.addTab("Mon Compte", jPanel5);
 
-        Jconnect.setModel(Jconnect.getModel());
-        Jconnect.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JconnectMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(Jconnect);
-
-        jLabel1.setText("Personnes connectée :");
-
-        jButton5.setText("Actualiser");
+        jButton5.setText("ACCEDER AU CHAT");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -394,27 +381,16 @@ public class JFApp extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(31, 31, 31))))
+                .addGap(163, 163, 163)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(126, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115))
         );
 
         Onglet2.addTab("Messagerie", jPanel1);
@@ -527,12 +503,6 @@ public class JFApp extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jListMouseClicked
 
-    private void JconnectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JconnectMouseClicked
-        // TODO add your handling code here:
-        
-
-    }//GEN-LAST:event_JconnectMouseClicked
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
             
         JFCompetence competence = new JFCompetence(id ,client);
@@ -548,6 +518,10 @@ public class JFApp extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        String name = jLNom.getText();
+        String prem = jLPrenom.getText();
+        JFMessage_Instantanee chat = new JFMessage_Instantanee(name);
+        chat.setVisible(true);   
 
     
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -585,7 +559,6 @@ public class JFApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> Jconnect;
     private javax.swing.JTabbedPane Onglet2;
     private javax.swing.JTextField champRech;
     private javax.swing.JButton jButton1;
@@ -599,7 +572,6 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JList jLDip;
     private javax.swing.JLabel jLNom;
     private javax.swing.JLabel jLPrenom;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel5;
@@ -612,7 +584,6 @@ public class JFApp extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTmail;
     private javax.swing.JTextField jTnais;
     private javax.swing.JTextField jTtel;
