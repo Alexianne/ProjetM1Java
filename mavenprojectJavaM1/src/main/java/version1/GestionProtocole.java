@@ -304,7 +304,43 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR DATA Modification compte";
 		}
         }
+            private String addmess(String message) {
+        		try {
+			String msg[] = message.split(" ");
+			String id = msg[1];
+                        String name = msg[2];
+			String mess = msg[3];
+                        boolean rep = servData.addmess(id,name,mess);
+                        return "OK "+rep;
+		} catch (NullPointerException e) {
+			return "ERREUR Authentification compte inexistant";
+		}
+    }
+                private String getmess(String message) {
+        try {
+			String msg[] = message.split(" ");
+			String id = msg[1];
+                        ArrayList<String> listinfo = servData.getmess(id);
+                        String rep = String.join(" ", listinfo);
+                        if ("".equals(rep))
+                            rep = "null";
+                        return "OK "+rep;
+		} catch (NullPointerException e) {
+			return "ERREUR Authentification compte inexistant";
+		}
+    }
 
+    private String suppmess(String message) {
+        try {
+			String msg[] = message.split(" ");
+			String id = msg[1];
+			boolean rep;
+                        rep = servData.suppmess(id);
+                        return "OK "+rep;
+		} catch (NullPointerException e) {
+			return "ERREUR Authentification compte inexistant";
+		}
+	}
     /**
      *
      * @param message
@@ -361,7 +397,16 @@ public class GestionProtocole implements Cloneable{
 			return result;
                 case "ADDLIKE":
                         result=addlike(message);
-			return result;  
+			return result;
+                case "ADDMESS":
+                        result=addmess(message);
+			return result;
+                case "GETMESS":
+                        result=getmess(message);
+			return result;
+                case "SUPPMESS":
+                        result=suppmess(message);
+			return result;
                 default:
 			return "La requête est inconnue";
 		}

@@ -498,6 +498,43 @@ public class DataBase {
         System.out.println(query3);
         return insertDB(query3);
  }
+
+    boolean addmess(String id, String name, String mess) {
+       String query = "INSERT INTO messagerie  VALUES ('"+id+"','"+name+"','"+mess+"')";
+       return insertDB(query);
+    }
+
+    ArrayList<String> getmess(String id) {
+        String query = "SELECT name FROM messagerie WHERE id ='"+id+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+        ArrayList<String> info = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    String query2 = "SELECT message FROM messagerie WHERE id ='"+id+"'";
+            rst = selectDB(query2);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return info;
+    }
+
+    boolean suppmess(String id) {
+        String query = "DELETE FROM messagerie WHERE id='"+id+"'";
+        return insertDB(query);
+    }
 }
 
    

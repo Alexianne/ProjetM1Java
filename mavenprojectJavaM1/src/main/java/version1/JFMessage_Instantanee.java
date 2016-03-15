@@ -67,8 +67,11 @@ public class JFMessage_Instantanee extends javax.swing.JFrame {
 
         jLabel1.setText("Port Client :");
 
+        nomClient.setEditable(false);
+
         jLabel2.setText("Votre nom :");
 
+        ipServeur.setEditable(false);
         ipServeur.setText("127.0.0.1");
 
         jLabel3.setText("@IP Serveur :");
