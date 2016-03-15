@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author Yassine Mahlaoui
+ * @author xav
  */
 public class ClientThread extends Thread {
 

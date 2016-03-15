@@ -11,7 +11,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Yassine Mahlaoui
+ * @author Xav
  */
 public class ClientMessage {
 
