@@ -18,13 +18,14 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
     private String nom;
     private String idrech;
     ClientConnect client;
-    
+    private String nomprop;
     /**
      * Creates new form JFFicheUtilisateur
      */
-    public JFFicheUtilisateur(String nom, Object c) {
+    public JFFicheUtilisateur(String nom, Object c, String nomprop) {
         initComponents();
         this.nom=nom;
+        this.nomprop=nomprop;
         this.client = (ClientConnect) c;
         String req = "GETINFO2 "+nom;
         System.out.println(req);
@@ -37,22 +38,35 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
             jtel.setText(msg[4]);
             jnais.setText(msg[5]);
             idrech = msg[6];
-            String req2 = "GETINFOUSER "+idrech;
-            String dipcompt = client.communiquer(req2);
-            String msgg[] = dipcompt.split(" ");
-
-
-            System.out.println(msgg[1]);
-            System.out.println(msgg[2]);
+            
+            
+            String req3 = "GETINFOUSERDIP "+idrech;
+            String compt = client.communiquer(req3);
+            
+            String msgd[] = compt.split(" ");
+            
             //System.out.println("err : "+msg[1]);
-            DefaultListModel modeldip = new DefaultListModel();
-            modeldip.addElement(msgg[1]+" "+msgg[2]);
-            jLDip.setModel(modeldip);    
-              
-            DefaultListModel modelcom = new DefaultListModel();
-            modelcom.addElement(msgg[3]+" "+msgg[4]+" "+msgg[5]);
-            jLComp.setModel(modelcom);  
-
+            if ("null".equals(msgd[1])){
+                System.out.println("Auncun diplome trouvé");
+            } else {
+                DefaultListModel modeldip = new DefaultListModel();
+                modeldip.addElement(msgd[1]+" "+msgd[2]);
+                jLDip.setModel(modeldip);
+            }
+            String req4 = "GETINFOUSERCOMP "+idrech;
+            String dip = client.communiquer(req4);
+            
+            String msgc[] = dip.split(" ");
+            
+            //System.out.println("err : "+msg[1]);
+            if ("null".equals(msgc[1])){
+                System.out.println("Auncune compétence trouvé");
+            }else{
+                DefaultListModel modelcom = new DefaultListModel();
+                modelcom.addElement(msgc[1]+" "+msgc[2]); 
+                jLComp.setModel(modelcom);
+            }
+      
             
         } catch (IOException ex) {
             Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,6 +96,7 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
         jdiplome = new javax.swing.JLabel();
         jnais = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        messErr = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +110,11 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
 
         jtel.setText("Téléphone : ");
 
+        jLComp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLCompMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jLComp);
 
         jcomp.setText("Compétences : ");
@@ -131,17 +151,19 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
                                 .addComponent(jnom))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jprenom)
-                                .addGap(37, 37, 37))
+                                .addComponent(jprenom))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jcomp)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jdiplome)
-                                .addGap(0, 133, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 19, Short.MAX_VALUE)
+                                .addComponent(messErr, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,8 +181,10 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rech)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rech)
+                    .addComponent(messErr, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jnom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jprenom)
@@ -180,7 +204,7 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,12 +216,31 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLCompMouseClicked
+
+        try {
+            String req = "ADDLIKE "+idrech+" "+nomprop;
+            String rep = client.communiquer(req);
+            System.out.println(rep);
+            String msg[] = rep.split(" ");
+            if("ERR200".equals(msg[1])){
+                messErr.setText("Erreur Ajout !");
+                messErr.setVisible(true);
+            }else{
+                JFValidateLike valide = new  JFValidateLike();
+                valide.setVisible(true);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(JFFicheUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+      
+          
+    }//GEN-LAST:event_jLCompMouseClicked
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jLComp;
@@ -211,6 +254,7 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
     private javax.swing.JLabel jnom;
     private javax.swing.JLabel jprenom;
     private javax.swing.JLabel jtel;
+    private javax.swing.JLabel messErr;
     private javax.swing.JLabel rech;
     // End of variables declaration//GEN-END:variables
 }

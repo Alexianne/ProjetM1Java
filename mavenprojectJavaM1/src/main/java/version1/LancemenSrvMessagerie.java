@@ -15,13 +15,24 @@ package version1;
  *
  * @author Xav
  */
-public class ServerMessagerie extends javax.swing.JFrame {
+public class LancemenSrvMessagerie extends javax.swing.JFrame {
 
     private boolean started = false;
     private ServerThread thread;
-
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[]) {
+        
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LancemenSrvMessagerie().setVisible(true);
+            }
+        });
+    }
     /** Creates new form Server */
-    public ServerMessagerie() {
+    public LancemenSrvMessagerie() {
         initComponents();
     }
 
@@ -103,16 +114,6 @@ public class ServerMessagerie extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_actionActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ServerMessagerie().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton action;

@@ -169,8 +169,9 @@ public class JFCompetence extends javax.swing.JFrame {
          //NIVEAU CHAMPS   
          
          // COnstruction de la requette :
-         
-        String req = "ADDINFOCOMP "+id+" "+compt+" "+des+" "+visible;
+        int like = 0;
+        String likeur = "--";
+        String req = "ADDINFOCOMP "+id+" "+compt+" "+des+" "+visible+" "+like+" "+likeur+"";
         String rep = null;
         try {
             rep = client.communiquer(req);

@@ -30,7 +30,7 @@ public class JFApp extends javax.swing.JFrame {
     /**
      * Creates new form JFApp
      */
-    
+    private String nom;
     private String id;
     ClientConnect client;
     /**
@@ -54,32 +54,13 @@ public class JFApp extends javax.swing.JFrame {
             String info = client.communiquer(req);
             String msg[] = info.split(" ");
             jLNom.setText(msg[1]);
+            this.nom = msg[1];
             jLPrenom.setText(msg[2]);
             jTmail.setText(msg[3]);
             jTtel.setText(msg[4]);
             jTnais.setText(msg[5]);
             String elemco = msg[1]+" "+msg[2];
-            
-            // MISE A JOUR DE LA LISTE DES PERSONNES CONNECTEES
-            /*
-           DefaultListModel modelc = new DefaultListModel();
-                ListModel<String> modelconnect = Jconnect.getModel();
-                int nbrco = modelconnect.getSize();
-               System.out.println(nbrco);
-               for (int i=1;i<nbrco;i++){
-                String connected = modelconnect.getElementAt(0);
-                System.out.println(connected);
-                connected = modelconnect.getElementAt(1);
-                System.out.println(connected);
-                modelc.addElement(connected);
-                }
-
-            modelc.addElement(msg[1]+" "+msg[2]); 
-            Jconnect.setModel(modelc);
-             modelconnect = Jconnect.getModel();
-            nbrco = modelconnect.getSize();
-            System.out.println(nbrco);
-         */
+           
             
             String req3 = "GETINFOUSERDIP "+id;
             String compt = client.communiquer(req3);
@@ -104,7 +85,7 @@ public class JFApp extends javax.swing.JFrame {
                 System.out.println("Auncune compétence trouvé");
             }else{
                 DefaultListModel modelcom = new DefaultListModel();
-                modelcom.addElement(msgc[1]+" "+msgc[2]+" "+msgc[3]); 
+                modelcom.addElement(msgc[1]+" "+msgc[2]); 
                 jLComp.setModel(modelcom);
             }
             
@@ -217,6 +198,11 @@ public class JFApp extends javax.swing.JFrame {
 
         jLabel5.setText("Compétences :");
 
+        jLComp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLCompMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jLComp);
 
         jLabel6.setText("Diplômes :");
@@ -280,23 +266,20 @@ public class JFApp extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton2)
+                                .addGap(52, 52, 52))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -497,7 +480,7 @@ public class JFApp extends javax.swing.JFrame {
         
         String tmp = (String) jList.getSelectedValue(); 
         System.out.println(tmp);
-        JFFicheUtilisateur fiche = new JFFicheUtilisateur(tmp,client);
+        JFFicheUtilisateur fiche = new JFFicheUtilisateur(tmp,client,nom);
         fiche.setVisible(true);
         
          
@@ -507,6 +490,7 @@ public class JFApp extends javax.swing.JFrame {
             
         JFCompetence competence = new JFCompetence(id ,client);
         competence.setVisible(true);
+        this.setVisible(false);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -514,6 +498,7 @@ public class JFApp extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFDiplome diplome = new JFDiplome(id ,client);
         diplome.setVisible(true);        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -525,6 +510,19 @@ public class JFApp extends javax.swing.JFrame {
 
     
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jLCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLCompMouseClicked
+
+        try {
+            String compselect = (String) jLComp.getSelectedValue();
+            JFLike like = new JFLike(id ,client,compselect);
+            like.setVisible(true);
+            // TODO add your handling code here:
+        } catch (IOException ex) {
+            Logger.getLogger(JFApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jLCompMouseClicked
 
     /** 
      * @param args the command line ar

@@ -206,6 +206,20 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Récupération des NOMS Impossible";
 		}
 	}
+        public String getlike(String message){
+                String msg[] = message.split(" ");
+		String id = msg[1];
+		try {
+			ArrayList<String> listinfo = servData.getlike(id);
+                        String res = String.join(" ", listinfo);
+                        if ("".equals(res))
+                            res = "null";
+			return "OK "+res;
+		}
+		catch (NullPointerException e){
+			return "ERREUR Récupération des Likes Impossible";
+		}
+	}
         
     /**
      *
@@ -239,10 +253,11 @@ public class GestionProtocole implements Cloneable{
 			String msg[] = message.split(" ");
 			String id = msg[1];
                         String competence = msg[2];
-			String niv = msg[3];
-                        String description = msg[4];
-                        double visible = Double.parseDouble(msg[5]);
-			boolean info = servData.addinfocomp(id,competence,niv,description,visible);
+                        String description = msg[3];
+                        double visible = Double.parseDouble(msg[4]);
+                        double like = Double.parseDouble(msg[5]);
+                        String likeur = msg[6];
+			boolean info = servData.addinfocomp(id,competence,description,visible,like,likeur);
                         return "OK "+info;
 		} catch (NullPointerException e) {
 			return "ERREUR DATA Modification compte ";
@@ -278,6 +293,17 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Authentification compte inexistant";
 		}
 	}
+        private String addlike(String message) {
+            try {
+			String msg[] = message.split(" ");
+			String id = msg[1];
+                        String likeur = msg[2];
+			boolean info = servData.addLike(id,likeur);
+                        return "OK "+info;
+		} catch (NullPointerException e) {
+			return "ERREUR DATA Modification compte";
+		}
+        }
 
     /**
      *
@@ -330,6 +356,12 @@ public class GestionProtocole implements Cloneable{
                 case "ADDINFOCOMP":
                         result=addinfocomp(message);
 			return result;
+                case "GETLIKE":
+                        result=getlike(message);
+			return result;
+                case "ADDLIKE":
+                        result=addlike(message);
+			return result;  
                 default:
 			return "La requête est inconnue";
 		}
@@ -351,4 +383,5 @@ public class GestionProtocole implements Cloneable{
 	    // on renvoie le clone
 	    return gestionprotocole;
 	}
+
 }

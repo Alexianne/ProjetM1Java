@@ -324,17 +324,6 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        query = "SELECT niveau FROM competence WHERE id ='"+message+"'";
-        rst = selectDB(query);
-            
-        try {
-            while(rst.next() && add){
-                add = info.add(rst.getString(1));
-                System.out.println(info);
-            }       			
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
          query = "SELECT description FROM competence WHERE id ='"+message+"'";
         rst = selectDB(query);
             
@@ -350,8 +339,8 @@ public class DataBase {
         return info;
         }// SOLUTION PROVISOIRE FIN *******************************************************************
 
-    static boolean addinfocomp(String id, String competence, String niv, String description, double visible) {
-        String query = "INSERT INTO competence  VALUES ('"+id+"','"+competence+"','"+niv+"','"+description+"','"+visible+"')";
+    static boolean addinfocomp(String id, String competence, String description, double visible, double like, String likeur ) {
+        String query = "INSERT INTO competence  VALUES ('"+id+"','"+competence+"','"+description+"','"+visible+"','"+like+"','"+likeur+"')";
         return insertDB(query);
     }
 
@@ -405,17 +394,6 @@ public class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        query = "SELECT niveau FROM competence WHERE id ='"+message+"'";
-        rst = selectDB(query);
-            
-        try {
-            while(rst.next() && add){
-                add = info.add(rst.getString(1));
-                System.out.println(info);
-            }       			
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
          query = "SELECT description FROM competence WHERE id ='"+message+"'";
         rst = selectDB(query);
             
@@ -453,12 +431,73 @@ public class DataBase {
             return id;
     }
 
+    ArrayList<String> getlike(String id) {
+        
+        String query = "SELECT nblike FROM competence WHERE id ='"+id+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+        ArrayList<String> info = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            String query2 = "SELECT likeur FROM competence WHERE id ='"+id+"'";
+            rst = selectDB(query2);
+            
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return info;
+    }
+         //To change body of generated methods, choose Tools | Templates.
 
-
-
-
-
+    @SuppressWarnings("empty-statement")
+    boolean addLike(String id, String nom) {
+        
+        String query = "SELECT nblike FROM competence WHERE id ='"+id+"'";
+        rst = selectDB(query);
+        boolean add = true ;
+        ArrayList<String> info = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info.add(rst.getString(1));
+                System.out.println(info);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            String query2 = "SELECT likeur FROM competence WHERE id ='"+id+"'";
+            rst = selectDB(query2);
+            ArrayList<String> info2 = new ArrayList<>();
+        try {
+            while(rst.next() && add){
+                add = info2.add(rst.getString(1));
+                System.out.println(info2);
+            }       			
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String likeur = nom;
+        String vlike = info.get(0);
+        int like = Integer.parseInt(vlike);
+        like = like+1;
+        likeur = likeur+" "+info2.get(0);
+        System.out.println(like);
+        System.out.println(info2);
+        System.out.println(likeur);
+        String query3 = "UPDATE donnees_utilisateur.competence SET nblike ='"+like+"', likeur='"+likeur+"' WHERE id ='"+id+"'";
+        System.out.println(query3);
+        return insertDB(query3);
+ }
 }
-    
 
-    
+   
