@@ -131,9 +131,15 @@ public class JFAffichemess extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if ("Aucun Message".equals(JTde.getText()))
+        {
+            this.setVisible(false);
+        }
+        else {
         JFValidate4 valide = new JFValidate4(id,client);
         valide.setVisible(true);
         this.setVisible(false);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
