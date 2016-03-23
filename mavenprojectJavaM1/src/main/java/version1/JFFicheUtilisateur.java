@@ -21,6 +21,9 @@ public class JFFicheUtilisateur extends javax.swing.JFrame {
     private String nomprop;
     /**
      * Creates new form JFFicheUtilisateur
+     * @param nom
+     * @param c
+     * @param nomprop
      */
     public JFFicheUtilisateur(String nom, Object c, String nomprop) {
         initComponents();

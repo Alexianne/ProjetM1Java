@@ -22,6 +22,10 @@ public class ClientThread extends Thread {
     private byte [] tampon;
     private int length = 1024;
 
+    /**
+     *
+     * @param port
+     */
     public ClientThread(int port) {
         this.port = port;
         tampon = new byte [length];

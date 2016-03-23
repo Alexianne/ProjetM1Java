@@ -20,6 +20,8 @@ public class JFValidate4 extends javax.swing.JFrame {
     ClientConnect client;
     /**
      * Creates new form JFValidate4
+     * @param id
+     * @param c
      */
     public JFValidate4(String id,Object c) {
         initComponents();

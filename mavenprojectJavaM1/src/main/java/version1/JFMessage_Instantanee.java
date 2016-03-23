@@ -19,17 +19,21 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Yassine Mahlaoui
+ * @author Xav
  */
 public class JFMessage_Instantanee extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     public static JFMessage_Instantanee client;
 
     private ClientThread thread;
     private Messagerie_Sender sender;
     private String name;
 
-    /** Creates new form Client */
+    /** Creates new form Client
+     * @param name */
     public JFMessage_Instantanee(String name) {
         initComponents();
         this.name = name;
@@ -226,6 +230,11 @@ public class JFMessage_Instantanee extends javax.swing.JFrame {
         });
     }
 
+    /**
+     *
+     * @param from
+     * @param body
+     */
     public static void newMessageArrived(String from, String body) {
         client.text.append("\n");
         client.text.append("< " + from + " > : " + body);

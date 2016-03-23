@@ -99,7 +99,12 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
 	
-	public String getlist(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getlist(String message){
 		try {
                         String msg[] = message.split(" ");
 			String nom = msg[1];
@@ -133,7 +138,12 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
         
-        public String getinfouser(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getinfouser(String message){
                 String msg[] = message.split(" ");
 		String id = msg[1];
 		try {
@@ -147,7 +157,13 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Récupération des NOMS Impossible";
 		}
 	}
-                public String getinfouser1(String message){
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getinfouser1(String message){
                 String msg[] = message.split(" ");
 		String id = msg[1];
 		try {
@@ -161,7 +177,13 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Récupération des NOMS Impossible";
 		}
 	}
-                 public String getinfouser2(String message){
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getinfouser2(String message){
                 String msg[] = message.split(" ");
 		String id = msg[1];
 		try {
@@ -176,7 +198,12 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
         
-                public String getinfo2(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getinfo2(String message){
                 String msg[] = message.split(" ");
 		String nom = msg[1];
                 String prenom = msg[2];
@@ -206,7 +233,13 @@ public class GestionProtocole implements Cloneable{
 			return "ERREUR Récupération des NOMS Impossible";
 		}
 	}
-        public String getlike(String message){
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String getlike(String message){
                 String msg[] = message.split(" ");
 		String id = msg[1];
 		try {
@@ -264,7 +297,12 @@ public class GestionProtocole implements Cloneable{
 		}
 	}
     
-      public String addinfodip(String message){
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public String addinfodip(String message){
 		try {
 			String msg[] = message.split(" ");
 			String id = msg[1];

@@ -12,7 +12,7 @@ import java.net.SocketException;
 
 /**
  *
- * @author Yassine Mahlaoui
+ * @author Xav
  */
 public class ServerThread extends Thread {
 
@@ -23,6 +23,10 @@ public class ServerThread extends Thread {
     private DatagramPacket packet;
     private DatagramSocket socket;
 
+    /**
+     *
+     * @param port
+     */
     public ServerThread (int port) {
         this.port = port;
         this.tampon = new byte[length];

@@ -24,6 +24,10 @@ public class JFLike extends javax.swing.JFrame {
     int nblike = 0;
     /**
      * Creates new form JFLike
+     * @param id
+     * @param c
+     * @param competence
+     * @throws java.io.IOException
      */
     public JFLike(String id,Object c ,String competence) throws IOException {
         initComponents();

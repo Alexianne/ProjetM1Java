@@ -19,6 +19,9 @@ public class JFmessagerie extends javax.swing.JFrame {
     private String nom;
     /**
      * Creates new form JFmessagerie
+     * @param id
+     * @param c
+     * @param nom
      */
     public JFmessagerie(String id, Object c, String nom) {
         initComponents();

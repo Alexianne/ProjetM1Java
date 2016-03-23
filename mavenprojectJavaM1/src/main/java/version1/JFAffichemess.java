@@ -18,6 +18,8 @@ public class JFAffichemess extends javax.swing.JFrame {
     ClientConnect client;
     /**
      * Creates new form JFAffichemess
+     * @param id
+     * @param c
      */
     public JFAffichemess(String id, Object c) {
         try {

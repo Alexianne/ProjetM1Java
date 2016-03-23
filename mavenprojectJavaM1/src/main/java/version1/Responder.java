@@ -16,12 +16,16 @@ import java.util.Vector;
 
 /**
  *
- * @author xav !:D
+ * @author Xav
  */
 public class Responder extends Thread {
 
     private DatagramPacket packet;
 
+    /**
+     *
+     * @param packet
+     */
     public Responder(DatagramPacket packet) {
         this.packet = packet;
         this.start();

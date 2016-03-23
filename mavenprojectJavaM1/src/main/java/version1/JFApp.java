@@ -36,7 +36,7 @@ public class JFApp extends javax.swing.JFrame {
     /**
      *
      * @param id
-     * @param client
+     * @param c
      */
     public JFApp(String id, Object c) {
         initComponents();

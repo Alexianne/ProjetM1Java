@@ -7,14 +7,23 @@ package version1;
 
 /**
  *
- * @author Xv ! :D
+ * @author Xav
  *
  */
 public class Util {
 
+    /**
+     *
+     */
     public final static String DELIM = "|~|";
 
+    /**
+     *
+     */
     public final static String HELLO = "Hello";
 
+    /**
+     *
+     */
     public final static String MSG = "Message";
 }

@@ -139,7 +139,14 @@ public class DataBase {
             return idsearch;
         
     }
-            public static ArrayList<String> getinfo2(String nom,String prenom) {
+
+    /**
+     *
+     * @param nom
+     * @param prenom
+     * @return
+     */
+    public static ArrayList<String> getinfo2(String nom,String prenom) {
         //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
         System.out.println(nom+" "+prenom);
         String query = "SELECT nom FROM coordonnees WHERE nom ='"+nom+"' and prenom = '"+prenom+"'";
@@ -215,8 +222,12 @@ public class DataBase {
         return info;
         }
             
-            
-        public static ArrayList<String> getinfo(String message) {
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public static ArrayList<String> getinfo(String message) {
         //String query = "SELECT nom FROM coordonnees WHERE nom LIKE '%"+message+"%' or prenom LIKE '%"+message+"%'";
         System.out.println(message);
         String query = "SELECT nom FROM coordonnees WHERE id ='"+message+"'";
@@ -415,6 +426,10 @@ public class DataBase {
        return insertDB(query);
     }
     
+    /**
+     *
+     * @return
+     */
     public static ArrayList<String> online() {
         int online = 1;
        String query = "SELECT prenom FROM coordonnees WHERE on='"+online+"'";
